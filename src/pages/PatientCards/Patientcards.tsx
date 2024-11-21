@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
 
 interface Patient {
+  patientId: string;
   name: string;
   lastVisit: string;
   doctorName: string;
@@ -13,94 +14,15 @@ interface Patient {
   imageUrl: string;
 }
 
-const patientsData: Patient[] = [
-  {
-    name: "Patient Name 1",
-    lastVisit: "22/11/2024",
-    doctorName: "Doctor Name 1",
-    contactNumber: "9292929292",
-    district: "District Name 1",
-    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-  },
-  {
-    name: "Patient Name 2",
-    lastVisit: "22/11/2024",
-    doctorName: "Doctor Name 2",
-    contactNumber: "9292929292",
-    district: "District Name 2",
-    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-  },
-  {
-    name: "Patient Name 3",
-    lastVisit: "22/11/2024",
-    doctorName: "Doctor Name 3",
-    contactNumber: "9292929292",
-    district: "District Name 3",
-    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-  },
-  {
-    name: "Patient Name 4",
-    lastVisit: "22/11/2024",
-    doctorName: "Doctor Name 4",
-    contactNumber: "9292929292",
-    district: "District Name 4",
-    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-  },
-  {
-    name: "Patient Name 5",
-    lastVisit: "22/11/2024",
-    doctorName: "Doctor Name 5",
-    contactNumber: "9292929292",
-    district: "District Name 5",
-    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-  },
-  {
-    name: "Patient Name 6",
-    lastVisit: "22/11/2024",
-    doctorName: "Doctor Name 6",
-    contactNumber: "9292929292",
-    district: "District Name 6",
-    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-  },
-  {
-    name: "Patient Name 7",
-    lastVisit: "22/11/2024",
-    doctorName: "Doctor Name 7",
-    contactNumber: "9292929292",
-    district: "District Name 7",
-    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-  },
-  {
-    name: "Patient Name 8",
-    lastVisit: "22/11/2024",
-    doctorName: "Doctor Name 8",
-    contactNumber: "9292929292",
-    district: "District Name 8",
-    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-  },
-  {
-    name: "Patient Name 9",
-    lastVisit: "22/11/2024",
-    doctorName: "Doctor Name 9",
-    contactNumber: "9292929292",
-    district: "District Name 9",
-    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-  },
-  {
-    name: "Patient Name 10",
-    lastVisit: "22/11/2024",
-    doctorName: "Doctor Name 10",
-    contactNumber: "9292929292",
-    district: "District Name 10",
-    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-  },
-];
-
 interface PatientcardsProps {
+  patientsData: Patient[];
   onPaginationChange: () => void;
 }
 
-const Patientcards: React.FC<PatientcardsProps> = ({ onPaginationChange }) => {
+const Patientcards: React.FC<PatientcardsProps> = ({
+  patientsData,
+  onPaginationChange,
+}) => {
   const itemsPerPage = 8;
 
   const [currentPage, setCurrentPage] = useState(0);
@@ -122,9 +44,14 @@ const Patientcards: React.FC<PatientcardsProps> = ({ onPaginationChange }) => {
           <div className="patientCard">
             <img src={patient.imageUrl} alt={`Patient ${patient.name}`} />
             <div className="cardContents">
+              <div className="patiendDetails">
+                <p className="patientName">{patient.patientId}</p>
+                <p className="doctorName">Dr. {patient.doctorName}</p>
+              </div>
               <p className="patientName">{patient.name}</p>
               <p className="lastVisit">
-                <span>Last Visit : </span> {patient.lastVisit}
+                <span>Last Visit : </span>
+                {patient.lastVisit}
               </p>
               <p className="doctorName">
                 <span>Doctor Name : </span> {patient.doctorName}

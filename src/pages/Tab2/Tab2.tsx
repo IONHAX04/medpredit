@@ -16,11 +16,104 @@ import { useRef } from "react";
 import { Divider } from "primereact/divider";
 import Patientcards from "../PatientCards/Patientcards";
 
+const patientsData = [
+  {
+    patientId: "NCD10001",
+    name: "Patient Name 1",
+    lastVisit: "22/11/2024",
+    doctorName: "Doctor Name 1",
+    contactNumber: "9292929292",
+    district: "District Name 1",
+    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
+  },
+  {
+    patientId: "NCD10002",
+    name: "Patient Name 2",
+    lastVisit: "22/11/2024",
+    doctorName: "Doctor Name 2",
+    contactNumber: "9292929292",
+    district: "District Name 2",
+    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
+  },
+  {
+    patientId: "NCD10003",
+    name: "Patient Name 3",
+    lastVisit: "22/11/2024",
+    doctorName: "Doctor Name 3",
+    contactNumber: "9292929292",
+    district: "District Name 3",
+    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
+  },
+  {
+    patientId: "NCD10004",
+    name: "Patient Name 4",
+    lastVisit: "22/11/2024",
+    doctorName: "Doctor Name 4",
+    contactNumber: "9292929292",
+    district: "District Name 4",
+    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
+  },
+  {
+    patientId: "NCD10005",
+    name: "Patient Name 5",
+    lastVisit: "22/11/2024",
+    doctorName: "Doctor Name 5",
+    contactNumber: "9292929292",
+    district: "District Name 5",
+    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
+  },
+  {
+    patientId: "NCD10006",
+    name: "Patient Name 6",
+    lastVisit: "22/11/2024",
+    doctorName: "Doctor Name 6",
+    contactNumber: "9292929292",
+    district: "District Name 6",
+    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
+  },
+  {
+    patientId: "NCD10007",
+    name: "Patient Name 7",
+    lastVisit: "22/11/2024",
+    doctorName: "Doctor Name 7",
+    contactNumber: "9292929292",
+    district: "District Name 7",
+    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
+  },
+  {
+    patientId: "NCD10008",
+    name: "Patient Name 8",
+    lastVisit: "22/11/2024",
+    doctorName: "Doctor Name 8",
+    contactNumber: "9292929292",
+    district: "District Name 8",
+    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
+  },
+  {
+    patientId: "NCD10009",
+    name: "Patient Name 9",
+    lastVisit: "22/11/2024",
+    doctorName: "Doctor Name 9",
+    contactNumber: "9292929292",
+    district: "District Name 9",
+    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
+  },
+  {
+    patientId: "NCD100010",
+    name: "Patient Name 10",
+    lastVisit: "22/11/2024",
+    doctorName: "Doctor Name 10",
+    contactNumber: "9292929292",
+    district: "District Name 10",
+    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
+  },
+];
+
 const Tab2: React.FC = () => {
   const sortModal = useRef<HTMLIonModalElement>(null);
   const filterModal = useRef<HTMLIonModalElement>(null);
 
-  const contentRef = useRef<HTMLIonContentElement>(null); // Reference for IonContent
+  const contentRef = useRef<HTMLIonContentElement>(null);
   const handlePaginationChange = () => {
     if (contentRef.current) {
       contentRef.current.scrollToTop(300);
@@ -46,7 +139,10 @@ const Tab2: React.FC = () => {
         </div>
 
         <div className="patientContents">
-          <Patientcards onPaginationChange={handlePaginationChange} />
+          <Patientcards
+            patientsData={patientsData}
+            onPaginationChange={handlePaginationChange}
+          />
         </div>
 
         <IonModal

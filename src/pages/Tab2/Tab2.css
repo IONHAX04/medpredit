@@ -63,6 +63,10 @@
   padding-inline-end: 10px;
   padding-block-end: auto;
 }
+.patiendDetails {
+  display: flex;
+  justify-content: space-between;
+}
 
 .patientCardsParent {
   display: flex;
@@ -96,6 +100,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.patientCardsParent .patientCard .cardContents .patiendDetails p {
+  font-weight: bold;
 }
 
 /* PAGINATOR STYLES */
