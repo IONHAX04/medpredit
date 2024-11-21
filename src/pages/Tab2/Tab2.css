@@ -61,12 +61,13 @@
 .patientContents {
   padding-inline-start: 10px;
   padding-inline-end: 10px;
+  padding-block-end: auto;
 }
 
 .patientCardsParent {
   display: flex;
+  overflow: auto;
   flex-direction: column;
-  padding-block-end: 200px;
 }
 
 .patientCardsParent .patientCard img {
@@ -95,4 +96,34 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+/* PAGINATOR STYLES */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style-type: none;
+  padding: 0;
+}
+
+.pagination li {
+  margin: 0 5px;
+}
+
+.pagination .active a {
+  font-weight: bold;
+  background-color: #ddd;
+  color: black;
+}
+
+.pagination a {
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: black;
+}
+
+.pagination a:hover {
+  background-color: #ddd;
 }

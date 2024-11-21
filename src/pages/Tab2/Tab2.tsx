@@ -11,12 +11,7 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import "./Tab2.css";
-import {
-  add,
-  addCircleOutline,
-  chevronDownOutline,
-  notifications,
-} from "ionicons/icons";
+import { addCircleOutline, chevronDownOutline } from "ionicons/icons";
 import { useRef } from "react";
 import { Divider } from "primereact/divider";
 import Patientcards from "../PatientCards/Patientcards";
@@ -25,9 +20,15 @@ const Tab2: React.FC = () => {
   const sortModal = useRef<HTMLIonModalElement>(null);
   const filterModal = useRef<HTMLIonModalElement>(null);
 
+  const contentRef = useRef<HTMLIonContentElement>(null); // Reference for IonContent
+  const handlePaginationChange = () => {
+    if (contentRef.current) {
+      contentRef.current.scrollToTop(300);
+    }
+  };
   return (
     <IonPage>
-      <IonContent fullscreen>
+      <IonContent fullscreen ref={contentRef}>
         <IonToolbar className="ion-padding-top">
           <IonSearchbar placeholder="Search Patient"></IonSearchbar>{" "}
           <IonButtons slot="end">
@@ -45,7 +46,7 @@ const Tab2: React.FC = () => {
         </div>
 
         <div className="patientContents">
-          <Patientcards />
+          <Patientcards onPaginationChange={handlePaginationChange} />
         </div>
 
         <IonModal

@@ -3,11 +3,12 @@ import {
   IonIcon,
   IonLabel,
   IonRouterOutlet,
-  IonSegment,
-  IonSegmentButton,
+  IonTabs,
+  IonTabButton,
+  IonTabBar,
 } from "@ionic/react";
 import React, { useState } from "react";
-import { Redirect, Route, useLocation } from "react-router";
+import { Redirect, Route, useHistory, useLocation } from "react-router";
 import Tab1 from "../Tab1/Tab1";
 import Tab2 from "../Tab2/Tab2";
 import Tab3 from "../Tab3/Tab3";
@@ -29,23 +30,28 @@ import Enroll from "../../components/03-Enroll/Enroll";
 
 const MainRoutes: React.FC = () => {
   const location = useLocation();
-  const [selectedSegment, setSelectedSegment] = useState<string>("home");
 
-  const handleSegmentChange = (value: string) => {
-    setSelectedSegment(value);
-  };
-
-  const getCurrentIcon = (
-    segment: string,
-    outlineIcon: string,
-    sharpIcon: string
-  ) => (selectedSegment === segment ? sharpIcon : outlineIcon);
+  const showTabBar = ["/home", "/patient", "/advice", "/settings"].includes(
+    location.pathname
+  );
 
   return (
-    <div>
-      <IonRouterOutlet>
+    <IonTabs>
+      <IonRouterOutlet id="main">
         <Route exact path="/">
           <Splashscreen />
+        </Route>
+        <Route path="/home">
+          <Tab1 />
+        </Route>
+        <Route path="/patient">
+          <Tab2 />
+        </Route>
+        <Route path="/advice">
+          <Tab3 />
+        </Route>
+        <Route path="/settings">
+          <Tab4 />
         </Route>
         <Route path="/login">
           <Login />
@@ -64,55 +70,43 @@ const MainRoutes: React.FC = () => {
         </Route>
       </IonRouterOutlet>
 
-      {["/", "/splash", "/intro", "/login", "/enroll"].includes(
-        location.pathname
-      ) === false && (
-        <IonContent>
-          <IonSegment
-            value={selectedSegment}
-            onIonChange={(e) => handleSegmentChange(e.detail.value as string)}
-          >
-            <IonSegmentButton value="home">
-              <IonIcon icon={getCurrentIcon("home", homeOutline, homeSharp)} />
-              <IonLabel>Home</IonLabel>
-            </IonSegmentButton>
-            <IonSegmentButton value="patient">
-              <IonIcon
-                icon={getCurrentIcon(
-                  "patient",
-                  personAddOutline,
-                  personAddSharp
-                )}
-              />
-              <IonLabel>Patient</IonLabel>
-            </IonSegmentButton>
-            <IonSegmentButton value="advice">
-              <IonIcon
-                icon={getCurrentIcon("advice", bookOutline, bookSharp)}
-              />
-              <IonLabel>Advice</IonLabel>
-            </IonSegmentButton>
-            <IonSegmentButton value="settings">
-              <IonIcon
-                icon={getCurrentIcon(
-                  "settings",
-                  settingsOutline,
-                  settingsSharp
-                )}
-              />
-              <IonLabel>Settings</IonLabel>
-            </IonSegmentButton>
-          </IonSegment>
-
-          <div style={{ padding: "1rem" }}>
-            {selectedSegment === "home" && <Tab1 />}
-            {selectedSegment === "patient" && <Tab2 />}
-            {selectedSegment === "advice" && <Tab3 />}
-            {selectedSegment === "settings" && <Tab4 />}
-          </div>
-        </IonContent>
+      {showTabBar && (
+        <IonTabBar slot="bottom">
+          <IonTabButton tab="home" href="/home">
+            <IonIcon
+              icon={location.pathname === "/home" ? homeSharp : homeOutline}
+            />
+            <IonLabel>Home</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="patient" href="/patient">
+            <IonIcon
+              icon={
+                location.pathname === "/patient"
+                  ? personAddSharp
+                  : personAddOutline
+              }
+            />
+            <IonLabel>Patient</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="advice" href="/advice">
+            <IonIcon
+              icon={location.pathname === "/advice" ? bookSharp : bookOutline}
+            />
+            <IonLabel>Advice</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="settings" href="/settings">
+            <IonIcon
+              icon={
+                location.pathname === "/settings"
+                  ? settingsSharp
+                  : settingsOutline
+              }
+            />
+            <IonLabel>Settings</IonLabel>
+          </IonTabButton>
+        </IonTabBar>
       )}
-    </div>
+    </IonTabs>
   );
 };
 

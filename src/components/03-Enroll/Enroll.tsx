@@ -39,7 +39,7 @@ const Enroll: React.FC = () => {
   }
 
   const handleSignUp = () => {
-    history.push("/tab1", {
+    history.push("/home", {
       direction: "forward",
       animation: "slide",
     });
@@ -47,7 +47,7 @@ const Enroll: React.FC = () => {
 
   const handleContinue = () => {
     dismiss();
-    history.push("/tab1", {
+    history.push("/home", {
       direction: "forward",
       animation: "slide",
     });
