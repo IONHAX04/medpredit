@@ -1,0 +1,40 @@
+.signinPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  block-size: 100vh;
+}
+
+.signinPage p {
+  margin: 0;
+}
+
+.formContentSignIn input {
+  background: white;
+  border: 1px solid black;
+  border-radius: 7px;
+  padding: 8px 10px;
+}
+
+.formContentSignIn button {
+  padding: 10px 20px;
+  background: #0165fc;
+  font-size: 16px;
+  text-transform: uppercase;
+  border-radius: 7px;
+}
+
+.formContentSignIn {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-inline-start: 30px;
+  padding-inline-end: 30px;
+  inline-size: 100%;
+}
+
+.formContentSignIn .forgotPassword {
+  text-align: end;
+  text-decoration: underline;
+}
