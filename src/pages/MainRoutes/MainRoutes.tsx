@@ -64,8 +64,9 @@ const MainRoutes: React.FC = () => {
         </Route>
       </IonRouterOutlet>
 
-      {["/", "/splash", "/intro", "/enroll"].includes(location.pathname) ===
-        false && (
+      {["/", "/splash", "/intro", "/login", "/enroll"].includes(
+        location.pathname
+      ) === false && (
         <IonContent>
           <IonSegment
             value={selectedSegment}

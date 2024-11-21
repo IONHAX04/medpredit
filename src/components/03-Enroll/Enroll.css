@@ -69,4 +69,21 @@
 
 .signinPage .welcomeCont {
   font-size: 14px;
+  text-align: center;
+  padding-inline-start: 30px;
+  padding-inline-end: 30px;
 }
+
+.termsCond {
+  text-align: center;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.termsConditionsCont {
+  text-align: justify;
+  text-indent: 2rem;
+}
+
+
+
