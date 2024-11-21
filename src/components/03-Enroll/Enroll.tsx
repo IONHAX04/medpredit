@@ -17,7 +17,7 @@ const Enroll: React.FC = () => {
 
           <div className="formContentSignIn ion-padding-top">
             <p>Email</p>
-            <input type="mobile" required />
+            <input type="email" required />
             <p>Password</p>
             <input type="password" required />
             <p className="forgotPassword">Forgot Password ?</p>
@@ -30,7 +30,7 @@ const Enroll: React.FC = () => {
             <div className="googleSignIn">
               <Avatar icon="pi pi-apple" size="large" shape="circle" />
               <Avatar icon="pi pi-google" size="large" shape="circle" />
-              <Avatar icon="pi pi-envelope" size="large" shape="circle" />
+              <Avatar icon="pi pi-phone" size="large" shape="circle" />
             </div>
             <div className="signUp">
               <p className="ion-padding-top">

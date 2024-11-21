@@ -12,7 +12,15 @@ import Tab1 from "../Tab1/Tab1";
 import Tab2 from "../Tab2/Tab2";
 import Tab3 from "../Tab3/Tab3";
 import Tab4 from "../Tab4/Tab4";
-import { ellipse, square, triangle } from "ionicons/icons";
+import {
+  bookOutline,
+  ellipse,
+  homeOutline,
+  personAddOutline,
+  settingsOutline,
+  square,
+  triangle,
+} from "ionicons/icons";
 import Login from "../../components/01-Login/Login";
 import Splashscreen from "../../components/00-Splashscreen/Splashscreen";
 import Intro from "../../components/02-Intro/Intro";
@@ -62,20 +70,20 @@ const MainRoutes: React.FC = () => {
         {showTabBar && (
           <IonTabBar slot="bottom">
             <IonTabButton tab="tab1" href="/tab1">
-              <IonIcon aria-hidden="true" icon={triangle} />
-              <IonLabel>Tab 1</IonLabel>
+              <IonIcon aria-hidden="true" icon={homeOutline} />
+              <IonLabel>Home</IonLabel>
             </IonTabButton>
             <IonTabButton tab="tab2" href="/tab2">
-              <IonIcon aria-hidden="true" icon={ellipse} />
-              <IonLabel>Tab 2</IonLabel>
+              <IonIcon aria-hidden="true" icon={personAddOutline} />
+              <IonLabel>Patient</IonLabel>
             </IonTabButton>
             <IonTabButton tab="tab3" href="/tab3">
-              <IonIcon aria-hidden="true" icon={square} />
-              <IonLabel>Tab 3</IonLabel>
+              <IonIcon aria-hidden="true" icon={bookOutline} />
+              <IonLabel>Advice</IonLabel>
             </IonTabButton>
             <IonTabButton tab="tab4" href="/tab4">
-              <IonIcon aria-hidden="true" icon={square} />
-              <IonLabel>Tab 4</IonLabel>
+              <IonIcon aria-hidden="true" icon={settingsOutline} />
+              <IonLabel>Settings</IonLabel>
             </IonTabButton>
           </IonTabBar>
         )}
