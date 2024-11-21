@@ -65,7 +65,10 @@ const AddUser: React.FC = () => {
   console.log("currentIndex", currentIndex);
   const goToNextSlide = () => {
     if (currentIndex === slides.length - 1) {
-      history.push("/enroll");
+      history.push("/patient", {
+        direction: "forward",
+        animation: "slide",
+      });
     } else if (carouselRef.current) {
       carouselRef.current.increment();
     }
