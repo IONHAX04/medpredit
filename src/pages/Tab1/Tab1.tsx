@@ -7,7 +7,20 @@ const Tab1: React.FC = () => {
       <IonHeader mode="ios">
         <IonSearchbar></IonSearchbar>
       </IonHeader>
-      <IonContent fullscreen></IonContent>
+      <IonContent fullscreen>
+        <img
+          src="https://ionicframework.com/docs/img/demos/thumbnail.svg"
+          alt=""
+        />
+        <img
+          src="https://ionicframework.com/docs/img/demos/thumbnail.svg"
+          alt=""
+        />
+        <img
+          src="https://ionicframework.com/docs/img/demos/thumbnail.svg"
+          alt=""
+        />
+      </IonContent>
     </IonPage>
   );
 };

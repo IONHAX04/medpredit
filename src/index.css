@@ -1,0 +1,28 @@
+ion-segment {
+  inset-block-end: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
+  z-index: 100;
+  --background: #ededed;
+  position: fixed;
+}
+
+ion-content {
+  block-size: 100vh;
+}
+
+ion-searchbar {
+  background-color: white;
+}
+
+ion-segment-button {
+  padding: 7px;
+}
+
+ion-segment-button ion-label {
+  font-size: 13px;
+}
+
+ion-segment-button ion-icon {
+  font-size: 24px;
+}
