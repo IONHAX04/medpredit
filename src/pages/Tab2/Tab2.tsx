@@ -15,6 +15,7 @@ import { addCircleOutline, chevronDownOutline } from "ionicons/icons";
 import { useRef } from "react";
 import { Divider } from "primereact/divider";
 import Patientcards from "../PatientCards/Patientcards";
+import { useHistory } from "react-router";
 
 const patientsData = [
   {
@@ -110,6 +111,8 @@ const patientsData = [
 ];
 
 const Tab2: React.FC = () => {
+  const history = useHistory();
+
   const sortModal = useRef<HTMLIonModalElement>(null);
   const filterModal = useRef<HTMLIonModalElement>(null);
 
@@ -119,13 +122,25 @@ const Tab2: React.FC = () => {
       contentRef.current.scrollToTop(300);
     }
   };
+
+  const handleAddUser = () => {
+    history.push("/addUser", {
+      direction: "forward",
+      animation: "slide",
+    });
+  };
+
   return (
     <IonPage>
       <IonContent fullscreen ref={contentRef}>
         <IonToolbar className="ion-padding-top">
           <IonSearchbar placeholder="Search Patient"></IonSearchbar>{" "}
           <IonButtons slot="end">
-            <IonIcon className="addIcon" icon={addCircleOutline}></IonIcon>
+            <IonIcon
+              onClick={handleAddUser}
+              className="addIcon"
+              icon={addCircleOutline}
+            ></IonIcon>
           </IonButtons>
         </IonToolbar>
 

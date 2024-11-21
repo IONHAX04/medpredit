@@ -27,6 +27,7 @@ import Login from "../../components/01-Login/Login";
 import Splashscreen from "../../components/00-Splashscreen/Splashscreen";
 import Intro from "../../components/02-Intro/Intro";
 import Enroll from "../../components/03-Enroll/Enroll";
+import AddUser from "../AddUser/AddUser";
 
 const MainRoutes: React.FC = () => {
   const location = useLocation();
@@ -52,6 +53,9 @@ const MainRoutes: React.FC = () => {
         </Route>
         <Route path="/settings">
           <Tab4 />
+        </Route>
+        <Route path="/addUser">
+          <AddUser />
         </Route>
         <Route path="/login">
           <Login />

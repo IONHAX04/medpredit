@@ -135,3 +135,82 @@
 .pagination a:hover {
   background-color: #ddd;
 }
+
+/* ADD USER STYLES */
+
+.carouselDivForm {
+  display: flex;
+  block-size: 80dvh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-inline-start: 10px;
+  padding-inline-end: 10px;
+  padding-block-start: 10px;
+}
+
+.carouselDivForm .p-inputgroup {
+  padding-block-end: 10px;
+}
+
+.carouselDivForm .p-password.p-component.p-inputwrapper.p-input-icon-right {
+  margin-inline-start: 20px;
+  margin-inline-end: 20px;
+}
+
+.carouselDivForm .p-password-input.p-inputtext.p-component {
+  inline-size: 95vw;
+}
+
+.carouselDivForm .p-dropdown-label.p-inputtext.p-placeholder {
+  text-align: start;
+}
+.p-dropdown-label.p-inputtext {
+  text-align: start;
+}
+
+.carouselButtonsForm {
+  display: flex;
+  flex-direction: row;
+  block-size: 10vh;
+  padding-inline-start: 10px;
+  padding-inline-end: 10px;
+  inset-block-end: 0;
+  position: fixed;
+  inset-inline-end: 0;
+  inset-inline-start: 0;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.carouselButtonsForm .carouselButtonForm {
+  background-color: transparent;
+}
+
+.carouselButtonsForm .carouselButtonForm ion-icon {
+  color: black;
+  font-size: 40px;
+}
+
+.carouselIndicatorsForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.indicatorForm {
+  inline-size: 10px;
+  block-size: 10px;
+  background-color: #ccc;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+.indicatorForm.active {
+  background-color: #000000;
+}
+
+.carouselButtonsForm .carouselButtonForm:disabled ion-icon {
+  color: white;
+}

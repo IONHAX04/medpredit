@@ -26,3 +26,20 @@ ion-segment-button ion-label {
 ion-segment-button ion-icon {
   font-size: 24px;
 }
+
+.p-inputtext:focus,
+.p-password input:focus,
+.p-dropdown:focus,
+.p-calendar input:focus,
+.p-inputgroup input:focus,
+.p-multiselect:focus,
+textarea:focus {
+  border-color: #6b7280;
+  box-shadow: none;
+  outline: none;
+}
+
+.p-button:focus {
+  box-shadow: none;
+  outline: none;
+}
