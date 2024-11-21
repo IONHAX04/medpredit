@@ -1,0 +1,98 @@
+.filters {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  overflow: auto;
+  padding: 10px;
+}
+
+.filters p {
+  margin: 0;
+}
+
+.filters .filter {
+  display: flex;
+  border-radius: 6px;
+  padding: 3px 10px;
+  inline-size: 6rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+}
+
+.block {
+  inline-size: 100%;
+  block-size: auto;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.block .sortOptions .options {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.block .sortOptions .options p {
+  margin: 0;
+  font-weight: normal;
+}
+
+.open-modal-filters {
+  --height: auto;
+}
+
+.block .sortOptions p {
+  text-align: center;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.addIcon {
+  font-size: 24px;
+  padding-inline-end: 10px;
+}
+
+/* PATIENT CARDS STYLES */
+
+.patientContents {
+  padding-inline-start: 10px;
+  padding-inline-end: 10px;
+}
+
+.patientCardsParent {
+  display: flex;
+  flex-direction: column;
+  padding-block-end: 200px;
+}
+
+.patientCardsParent .patientCard img {
+  inline-size: 20%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+.patientCardsParent .patientCard .cardContents {
+  inline-size: 77%;
+}
+
+.patientCardsParent .patientCard {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.patientCardsParent .patientCard .cardContents p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.patientCardsParent .patientCard .cardContents .footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

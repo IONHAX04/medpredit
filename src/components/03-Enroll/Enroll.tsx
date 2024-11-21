@@ -3,6 +3,7 @@ import {
   IonCheckbox,
   IonContent,
   IonHeader,
+  IonIcon,
   IonItem,
   IonModal,
   IonPage,
@@ -13,10 +14,14 @@ import React, { useEffect, useRef, useState } from "react";
 import "./Enroll.css";
 import { Divider } from "primereact/divider";
 import { Avatar } from "primereact/avatar";
+import { arrowForwardOutline } from "ionicons/icons";
+import { useHistory } from "react-router";
 
 const Enroll: React.FC = () => {
   const modal = useRef<HTMLIonModalElement>(null);
   const page = useRef(undefined);
+
+  const history = useHistory();
 
   const [canDismiss, setCanDismiss] = useState(false);
   const [presentingElement, setPresentingElement] = useState<
@@ -32,6 +37,22 @@ const Enroll: React.FC = () => {
   function dismiss() {
     modal.current?.dismiss();
   }
+
+  const handleSignUp = () => {
+    history.push("/tab1", {
+      direction: "forward",
+      animation: "slide",
+    });
+  };
+
+  const handleContinue = () => {
+    dismiss();
+    history.push("/tab1", {
+      direction: "forward",
+      animation: "slide",
+    });
+  };
+
   return (
     <IonPage ref={page}>
       <IonContent>
@@ -54,7 +75,10 @@ const Enroll: React.FC = () => {
               <p>Password</p>
               <input type="password" required />
               <p className="forgotPassword">Forgot Password ?</p>
-              <button className="ion-margin-top ion-margin-bottom">
+              <button
+                className="ion-margin-top ion-margin-bottom"
+                onClick={handleSignUp}
+              >
                 Sign In
               </button>
               <Divider layout="horizontal">
@@ -67,7 +91,7 @@ const Enroll: React.FC = () => {
                 <p className="ion-padding-top">
                   Don't have an account?
                   <span onClick={() => setIsSignInVisible(false)}>
-                    Sign up here!
+                    &nbsp; Sign up here!
                   </span>{" "}
                 </p>
               </div>
@@ -111,7 +135,7 @@ const Enroll: React.FC = () => {
                 <p className="ion-padding-top">
                   Already have an account ?
                   <span onClick={() => setIsSignInVisible(true)}>
-                    Sign in here!
+                    &nbsp; Sign in here!
                   </span>{" "}
                 </p>
               </div>
@@ -152,10 +176,11 @@ const Enroll: React.FC = () => {
             </IonItem>
             <IonButton
               disabled={!canDismiss}
-              onClick={dismiss}
+              onClick={handleContinue}
               className="continueButton"
             >
               Continue
+              <IonIcon icon={arrowForwardOutline}></IonIcon>
             </IonButton>
           </IonContent>
         </IonModal>

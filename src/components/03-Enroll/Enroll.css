@@ -1,3 +1,7 @@
+.signIn {
+  block-size: 100vh;
+}
+
 .signinPage {
   display: flex;
   flex-direction: column;
@@ -85,5 +89,15 @@
   text-indent: 2rem;
 }
 
+.continueButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-inline-start: 20%;
+  margin-inline-end: 20%;
+}
 
-
+.continueButton ion-icon {
+  font-size: 20px;
+  padding-inline-start: 10px;
+}

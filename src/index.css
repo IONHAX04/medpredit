@@ -3,7 +3,7 @@ ion-segment {
   inset-inline-start: 0;
   inset-inline-end: 0;
   z-index: 100;
-  --background: #ededed;
+  --background: #f7f7f7;
   position: fixed;
 }
 
@@ -12,7 +12,7 @@ ion-content {
 }
 
 ion-searchbar {
-  background-color: white;
+  background-color: #f7f7f7;
 }
 
 ion-segment-button {
