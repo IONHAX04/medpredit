@@ -29,6 +29,7 @@ import Intro from "../../components/02-Intro/Intro";
 import Enroll from "../../components/03-Enroll/Enroll";
 import AddUser from "../AddUser/AddUser";
 import KnowAboutPatient from "../../components/22-KnowAboutPatient/KnowAboutPatient";
+import Questions from "../Questions/Questions";
 
 const MainRoutes: React.FC = () => {
   const location = useLocation();
@@ -72,6 +73,9 @@ const MainRoutes: React.FC = () => {
         </Route>
         <Route path="/knowAbout/:patient">
           <KnowAboutPatient />
+        </Route>
+        <Route path="/questions/:cardTitle">
+          <Questions />
         </Route>
         <Route exact path="/">
           <Redirect to="/splash" />

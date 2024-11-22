@@ -242,3 +242,85 @@
   font-size: 14px;
   font-weight: bold;
 }
+
+/* QUESTIONS */
+.questionContainers {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.questionContainers .questions {
+  display: flex;
+  flex-direction: column;
+  inline-size: 80vw;
+  margin-block-end: 20px;
+}
+
+.questionContainers .questions p {
+  margin: 0;
+}
+
+.questionContainers .questions .question {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-block-end: 10px;
+}
+
+.questions .options .option {
+  display: flex;
+  padding: 10px;
+  text-align: center;
+  border-radius: 7px;
+  margin-block-end: 10px;
+  border: 1px solid #6b7280;
+}
+
+.questions .p-inputtext {
+  margin-block-end: 10px;
+}
+
+.footerButtons {
+  display: flex;
+  background-color: #f7f7f7;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footerButtons button {
+  padding: 10px 20px;
+  inline-size: 7rem;
+  margin-inline-start: 10px;
+  margin-inline-end: 10px;
+  border-radius: 7px;
+  border: 1px solid black;
+}
+
+/* YES OR NO OR OPTION BUTTONS */
+.buttonGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.buttonGroup button {
+  font-size: 15px;
+}
+
+.optionButton {
+  padding: 15px 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.optionButton.selected {
+  background-color: #6b7280;
+  color: white;
+  border-color: #6b7280;
+}

@@ -44,6 +44,20 @@ textarea:focus {
   outline: none;
 }
 
+.p-checkbox:not(.p-disabled):has(.p-checkbox-input:hover).p-highlight
+  .p-checkbox-box {
+  border-color: #6b7280;
+  background-color: black;
+}
+
 ion-tab-button {
   color: black;
+}
+
+ion-checkbox {
+  --checkbox-background-checked: black;
+}
+
+ion-checkbox::part(container) {
+  border: 1px solid black;
 }
