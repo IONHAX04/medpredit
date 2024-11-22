@@ -11,13 +11,13 @@ import {
   IonPage,
   IonSegment,
   IonSegmentButton,
+  IonSegmentContent,
+  IonSegmentView,
   IonTitle,
   IonToolbar,
   SegmentValue,
 } from "@ionic/react";
 import { addCircleOutline } from "ionicons/icons";
-import QuestionsAll from "../../components/31-QuestionsAll/QuestionsAll";
-import EmployeesAll from "../../components/32-EmployeesAll/EmployeesAll";
 
 const Tab5: React.FC = () => {
   const [selectedSegment, setSelectedSegment] =
@@ -48,23 +48,22 @@ const Tab5: React.FC = () => {
             ></IonIcon>
           </IonButtons>
         </IonToolbar>
+      </IonHeader>
+      <IonContent fullscreen>
         <IonToolbar>
-          <IonSegment
-            value={selectedSegment}
-            onIonChange={(e) => setSelectedSegment(e.detail.value!)}
-          >
-            <IonSegmentButton value="questions">
+          <IonSegment value="questions" scrollable={true}>
+            <IonSegmentButton value="questions" contentId="questions">
               <IonLabel>Questions</IonLabel>
             </IonSegmentButton>
-            <IonSegmentButton value="employee">
+            <IonSegmentButton value="employee" contentId="employee">
               <IonLabel>Employee</IonLabel>
             </IonSegmentButton>
           </IonSegment>
         </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen>
-        {selectedSegment === "questions" && <QuestionsAll />}
-        {selectedSegment === "employee" && <EmployeesAll />}
+        <IonSegmentView>
+          <IonSegmentContent id="questions">Question</IonSegmentContent>
+          <IonSegmentContent id="employee">Employee</IonSegmentContent>
+        </IonSegmentView>
       </IonContent>
     </IonPage>
   );

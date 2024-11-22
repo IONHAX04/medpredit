@@ -3,7 +3,12 @@ import {
   IonButtons,
   IonContent,
   IonHeader,
+  IonLabel,
   IonPage,
+  IonSegment,
+  IonSegmentButton,
+  IonSegmentContent,
+  IonSegmentView,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
@@ -17,11 +22,11 @@ const KnowAboutPatient: React.FC = () => {
   console.log("patientId", patient);
 
   const cardData = [
-    {
-      id: "1",
-      imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-      title: "Vitals",
-    },
+    // {
+    //   id: "1",
+    //   imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
+    //   title: "Vitals",
+    // },
     {
       id: "2",
       imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
@@ -74,7 +79,36 @@ const KnowAboutPatient: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <KnowCards cardData={cardData} />
+        <IonToolbar>
+          <IonSegment value="ask" scrollable={true}>
+            <IonSegmentButton value="ask" contentId="ask">
+              <IonLabel>Ask For</IonLabel>
+            </IonSegmentButton>
+            <IonSegmentButton value="health" contentId="health">
+              <IonLabel>Previous Health</IonLabel>
+            </IonSegmentButton>
+            <IonSegmentButton value="look" contentId="look">
+              <IonLabel>Look For</IonLabel>
+            </IonSegmentButton>
+            <IonSegmentButton value="investigation" contentId="investigation">
+              <IonLabel>Investigation</IonLabel>
+            </IonSegmentButton>
+            <IonSegmentButton value="report" contentId="report">
+              <IonLabel>Report</IonLabel>
+            </IonSegmentButton>
+          </IonSegment>
+        </IonToolbar>
+        <IonSegmentView>
+          <IonSegmentContent id="ask">
+            <KnowCards cardData={cardData} />
+          </IonSegmentContent>
+          <IonSegmentContent id="health">Health</IonSegmentContent>
+          <IonSegmentContent id="look">Look</IonSegmentContent>
+          <IonSegmentContent id="investigation">
+            Investigation
+          </IonSegmentContent>
+          <IonSegmentContent id="report">Report</IonSegmentContent>
+        </IonSegmentView>
       </IonContent>
     </IonPage>
   );
