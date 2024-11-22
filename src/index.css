@@ -43,3 +43,7 @@ textarea:focus {
   box-shadow: none;
   outline: none;
 }
+
+ion-tab-button {
+  color: black;
+}

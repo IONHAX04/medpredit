@@ -28,6 +28,7 @@ import Splashscreen from "../../components/00-Splashscreen/Splashscreen";
 import Intro from "../../components/02-Intro/Intro";
 import Enroll from "../../components/03-Enroll/Enroll";
 import AddUser from "../AddUser/AddUser";
+import KnowAboutPatient from "../../components/22-KnowAboutPatient/KnowAboutPatient";
 
 const MainRoutes: React.FC = () => {
   const location = useLocation();
@@ -68,6 +69,9 @@ const MainRoutes: React.FC = () => {
         </Route>
         <Route path="/enroll">
           <Enroll />
+        </Route>
+        <Route path="/knowAbout/:patient">
+          <KnowAboutPatient />
         </Route>
         <Route exact path="/">
           <Redirect to="/splash" />

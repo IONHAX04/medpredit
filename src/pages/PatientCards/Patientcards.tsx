@@ -3,6 +3,7 @@ import { Divider } from "primereact/divider";
 import React, { useState } from "react";
 
 import ReactPaginate from "react-paginate";
+import { useHistory } from "react-router";
 
 interface Patient {
   patientId: string;
@@ -23,6 +24,7 @@ const Patientcards: React.FC<PatientcardsProps> = ({
   patientsData,
   onPaginationChange,
 }) => {
+  const history = useHistory();
   const itemsPerPage = 8;
 
   const [currentPage, setCurrentPage] = useState(0);
@@ -30,6 +32,10 @@ const Patientcards: React.FC<PatientcardsProps> = ({
   const handlePageChange = (selectedPage: { selected: number }) => {
     setCurrentPage(selectedPage.selected);
     onPaginationChange();
+  };
+
+  const handleCardClick = (patient: string) => {
+    history.push(`/knowAbout/${patient}`);
   };
 
   const displayedPatients = patientsData.slice(
@@ -41,7 +47,11 @@ const Patientcards: React.FC<PatientcardsProps> = ({
     <div className="patientCardsParent">
       {displayedPatients.map((patient, index) => (
         <div key={index}>
-          <div className="patientCard">
+          <div
+            className="patientCard"
+            onClick={() => handleCardClick(patient.patientId)}
+          >
+            {" "}
             <img src={patient.imageUrl} alt={`Patient ${patient.name}`} />
             <div className="cardContents">
               <div className="patiendDetails">
