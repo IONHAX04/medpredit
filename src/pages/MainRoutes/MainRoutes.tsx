@@ -16,10 +16,14 @@ import Tab4 from "../Tab4/Tab4";
 import {
   bookOutline,
   bookSharp,
+  cogOutline,
+  cogSharp,
   homeOutline,
   homeSharp,
   personAddOutline,
   personAddSharp,
+  personOutline,
+  personSharp,
   settingsOutline,
   settingsSharp,
 } from "ionicons/icons";
@@ -30,13 +34,20 @@ import Enroll from "../../components/03-Enroll/Enroll";
 import AddUser from "../AddUser/AddUser";
 import KnowAboutPatient from "../../components/22-KnowAboutPatient/KnowAboutPatient";
 import Questions from "../Questions/Questions";
+import Tab5 from "../Tab5/Tab5";
+import AddQuestions from "../../components/33-AddQuestions/AddQuestions";
+import AddEmployee from "../../components/34-AddEmployee/AddEmployee";
 
 const MainRoutes: React.FC = () => {
   const location = useLocation();
 
-  const showTabBar = ["/home", "/patient", "/advice", "/settings"].includes(
-    location.pathname
-  );
+  const showTabBar = [
+    "/home",
+    "/patient",
+    "/advice",
+    "/settings",
+    "/configure",
+  ].includes(location.pathname);
 
   return (
     <IonTabs>
@@ -55,6 +66,9 @@ const MainRoutes: React.FC = () => {
         </Route>
         <Route path="/settings">
           <Tab4 />
+        </Route>
+        <Route path="/configure">
+          <Tab5 />
         </Route>
         <Route path="/addUser">
           <AddUser />
@@ -76,6 +90,12 @@ const MainRoutes: React.FC = () => {
         </Route>
         <Route path="/questions/:cardTitle">
           <Questions />
+        </Route>
+        <Route path="/addQuestions">
+          <AddQuestions />
+        </Route>
+        <Route path="/addEmployee">
+          <AddEmployee />
         </Route>
         <Route exact path="/">
           <Redirect to="/splash" />
@@ -100,6 +120,12 @@ const MainRoutes: React.FC = () => {
             />
             <IonLabel>Patient</IonLabel>
           </IonTabButton>
+          <IonTabButton tab="configure" href="/configure">
+            <IonIcon
+              icon={location.pathname === "/configure" ? cogSharp : cogOutline}
+            />
+            <IonLabel>Configure</IonLabel>
+          </IonTabButton>
           <IonTabButton tab="advice" href="/advice">
             <IonIcon
               icon={location.pathname === "/advice" ? bookSharp : bookOutline}
@@ -109,12 +135,10 @@ const MainRoutes: React.FC = () => {
           <IonTabButton tab="settings" href="/settings">
             <IonIcon
               icon={
-                location.pathname === "/settings"
-                  ? settingsSharp
-                  : settingsOutline
+                location.pathname === "/settings" ? personSharp : personOutline
               }
             />
-            <IonLabel>Settings</IonLabel>
+            <IonLabel>Profile</IonLabel>
           </IonTabButton>
         </IonTabBar>
       )}

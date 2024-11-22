@@ -132,18 +132,17 @@ const Tab2: React.FC = () => {
 
   return (
     <IonPage>
+      <IonToolbar className="ion-padding-top">
+        <IonSearchbar placeholder="Search Patient"></IonSearchbar>{" "}
+        <IonButtons slot="end">
+          <IonIcon
+            onClick={handleAddUser}
+            className="addIcon"
+            icon={addCircleOutline}
+          ></IonIcon>
+        </IonButtons>
+      </IonToolbar>
       <IonContent fullscreen ref={contentRef}>
-        <IonToolbar className="ion-padding-top">
-          <IonSearchbar placeholder="Search Patient"></IonSearchbar>{" "}
-          <IonButtons slot="end">
-            <IonIcon
-              onClick={handleAddUser}
-              className="addIcon"
-              icon={addCircleOutline}
-            ></IonIcon>
-          </IonButtons>
-        </IonToolbar>
-
         <div className="filters">
           <p className="filter" id="open-sort-by">
             Sort by <IonIcon icon={chevronDownOutline}></IonIcon>
