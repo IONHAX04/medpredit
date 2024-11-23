@@ -14,26 +14,29 @@ interface KnowCardsValues {
 const KnowCards: React.FC<KnowCardsValues> = ({ cardData }) => {
   const history = useHistory();
 
-  const handleCardClick = (cardTitle: string) => {
-    console.log("card ---", cardTitle);
-    history.push(`/questions/${cardTitle}`);
+  const handleCardClick = (categoryId: string) => {
+    console.log("card ---", categoryId);
+    history.push(`/subCategories/${categoryId}`);
   };
 
   return (
-    <div className="grid-container ion-padding">
-      {cardData.map((card) => (
-        <div
-          className="grid-item"
-          key={card.id}
-          onClick={() => handleCardClick(card.title)}
-        >
-          <div className="knowCard">
-            <img src={card.imageUrl} alt={card.title} />
-            <p>{card.title}</p>
+    <>
+      <div className="listView"></div>
+      <div className="grid-container ion-padding">
+        {cardData.map((card) => (
+          <div
+            className="grid-item"
+            key={card.id}
+            onClick={() => handleCardClick(card.title)}
+          >
+            <div className="knowCard">
+              <img src={card.imageUrl} alt={card.title} />
+              <p>{card.title}</p>
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </>
   );
 };
 

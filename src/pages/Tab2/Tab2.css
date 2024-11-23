@@ -324,3 +324,79 @@
   color: white;
   border-color: #6b7280;
 }
+
+/* SUB CARDS STYLES */
+.subCardContents {
+  display: flex;
+  flex-direction: column;
+  padding-inline-start: 10px;
+  padding-inline-end: 10px;
+}
+
+.subCards img {
+  inline-size: 20vw;
+  border-radius: 50%;
+}
+
+.subCards .cardConts {
+  inline-size: 75vw;
+  padding-inline-start: 10px;
+}
+
+.subCards .cardConts .cardHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subCards {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.subCards .cardConts .cardHeader p,
+.subCards .cardConts .cardSecHeader p {
+  margin: 0;
+}
+
+.subCardsHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* CIRCULAR PROGRESS BAR */
+
+.circularProgress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.circularChart {
+  inline-size: 20px;
+  block-size: 20px;
+}
+
+.circleBackground {
+  fill: none;
+  stroke: #e0e0e0;
+  stroke-width: 3.8;
+}
+
+.circle {
+  fill: none;
+  stroke: #222d3a;
+  stroke-width: 5;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.3s ease;
+}
+
+.subCardContents .p-divider.p-divider-horizontal {
+  margin: 0.75rem 0;
+}

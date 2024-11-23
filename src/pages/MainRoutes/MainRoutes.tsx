@@ -37,6 +37,7 @@ import Questions from "../Questions/Questions";
 import Tab5 from "../Tab5/Tab5";
 import AddQuestions from "../../components/33-AddQuestions/AddQuestions";
 import AddEmployee from "../../components/34-AddEmployee/AddEmployee";
+import SubCategories from "../SubCategories/SubCategories";
 
 const MainRoutes: React.FC = () => {
   const location = useLocation();
@@ -85,10 +86,13 @@ const MainRoutes: React.FC = () => {
         <Route path="/enroll">
           <Enroll />
         </Route>
+        <Route path="/subCategories/:categoryId">
+          <SubCategories />
+        </Route>
         <Route path="/knowAbout/:patient">
           <KnowAboutPatient />
         </Route>
-        <Route path="/questions/:cardTitle">
+        <Route path="/questions/:categoryId/:cardTitle">
           <Questions />
         </Route>
         <Route path="/addQuestions">

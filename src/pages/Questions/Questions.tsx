@@ -17,8 +17,8 @@ import Checkbox from "./Checkbox";
 import YesNo from "./YesNo";
 
 const Questions: React.FC = () => {
-  const { cardTitle } = useParams<{ cardTitle: string }>();
-  console.log("card", cardTitle);
+  const { categoryId } = useParams<{ categoryId: string }>();
+  console.log("card", categoryId);
 
   const questionsData = [
     {
@@ -63,7 +63,7 @@ const Questions: React.FC = () => {
           <IonButtons slot="start">
             <IonBackButton mode="md" defaultHref="/patient"></IonBackButton>
           </IonButtons>
-          <IonTitle>{cardTitle}</IonTitle>
+          <IonTitle>{categoryId}</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>

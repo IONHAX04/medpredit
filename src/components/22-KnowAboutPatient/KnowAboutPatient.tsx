@@ -22,50 +22,25 @@ const KnowAboutPatient: React.FC = () => {
   console.log("patientId", patient);
 
   const cardData = [
-    // {
-    //   id: "1",
-    //   imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-    //   title: "Vitals",
-    // },
+    {
+      id: "1",
+      imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
+      title: "Risk Factor",
+    },
     {
       id: "2",
       imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-      title: "Physical Activity",
+      title: "Symptoms",
     },
     {
       id: "3",
       imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-      title: "Stress",
+      title: "Previous Illness",
     },
     {
       id: "4",
       imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-      title: "Tobacco",
-    },
-    {
-      id: "5",
-      imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-      title: "Alcohol",
-    },
-    {
-      id: "6",
-      imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-      title: "Diet",
-    },
-    {
-      id: "7",
-      imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-      title: "Sleep",
-    },
-    {
-      id: "8",
-      imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-      title: "BMI",
-    },
-    {
-      id: "9",
-      imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-      title: "Family History",
+      title: "Treatment Details",
     },
   ];
   return (
