@@ -21,7 +21,7 @@ const KnowAboutPatient: React.FC = () => {
   const { patient } = useParams<{ patient: string }>();
   console.log("patientId", patient);
 
-  const cardData = [
+  const askFor = [
     {
       id: "1",
       imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
@@ -43,6 +43,43 @@ const KnowAboutPatient: React.FC = () => {
       title: "Treatment Details",
     },
   ];
+
+  const lookFor = [
+    {
+      id: "1",
+      imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
+      title: "General Examination",
+    },
+    {
+      id: "2",
+      imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
+      title: "Vital Signs",
+    },
+    {
+      id: "3",
+      imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
+      title: "Systemic Examination",
+    },
+  ];
+
+  const investigations = [
+    {
+      id: "1",
+      imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
+      title: "Blood Sugar Level",
+    },
+    {
+      id: "2",
+      imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
+      title: "Dyslipidemia",
+    },
+    {
+      id: "3",
+      imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
+      title: "Renal Compication",
+    },
+  ];
+
   return (
     <IonPage>
       <IonHeader mode="ios">
@@ -53,17 +90,17 @@ const KnowAboutPatient: React.FC = () => {
           <IonTitle>{patient}</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
+      <IonContent>
         <IonToolbar>
           <IonSegment value="ask" scrollable={true}>
             <IonSegmentButton value="ask" contentId="ask">
               <IonLabel>Ask For</IonLabel>
             </IonSegmentButton>
-            <IonSegmentButton value="health" contentId="health">
-              <IonLabel>Previous Health</IonLabel>
-            </IonSegmentButton>
             <IonSegmentButton value="look" contentId="look">
               <IonLabel>Look For</IonLabel>
+            </IonSegmentButton>
+            <IonSegmentButton value="health" contentId="health">
+              <IonLabel>Previous Health</IonLabel>
             </IonSegmentButton>
             <IonSegmentButton value="investigation" contentId="investigation">
               <IonLabel>Investigation</IonLabel>
@@ -75,12 +112,14 @@ const KnowAboutPatient: React.FC = () => {
         </IonToolbar>
         <IonSegmentView>
           <IonSegmentContent id="ask">
-            <KnowCards cardData={cardData} />
+            <KnowCards cardData={askFor} />
+          </IonSegmentContent>
+          <IonSegmentContent id="look">
+            <KnowCards cardData={lookFor} />
           </IonSegmentContent>
           <IonSegmentContent id="health">Health</IonSegmentContent>
-          <IonSegmentContent id="look">Look</IonSegmentContent>
           <IonSegmentContent id="investigation">
-            Investigation
+            <KnowCards cardData={investigations} />
           </IonSegmentContent>
           <IonSegmentContent id="report">Report</IonSegmentContent>
         </IonSegmentView>

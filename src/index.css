@@ -1,3 +1,6 @@
+/* primary color - #1c70b0 -- blue */
+/* primary color - #33b725 -- green */
+
 ion-segment {
   inset-block-end: 0;
   inset-inline-start: 0;
@@ -20,7 +23,7 @@ ion-segment-button {
 }
 
 ion-segment-button ion-label {
-  font-size: 13px;
+  font-size: clamp(13px, 1.5vw, 16px);
 }
 
 ion-segment-button ion-icon {

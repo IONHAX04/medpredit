@@ -3,6 +3,9 @@ import { useHistory } from "react-router-dom";
 import "./Splashscreen.css";
 import { IonContent, IonPage } from "@ionic/react";
 
+import logo1 from "../../assets/logo/icon.svg";
+import logo2 from "../../assets/logo/logo.svg";
+
 const Splashscreen: React.FC = () => {
   const history = useHistory();
 
@@ -17,12 +20,9 @@ const Splashscreen: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
-        <div className="splashScreenContents">
-          <img
-            src="https://ionicframework.com/docs/img/demos/thumbnail.svg"
-            alt=""
-          />
-          <p>MEDPREDiT</p>
+        <div className="splashScreenContents ion-padding-start ion-padding-end">
+          <img src={logo2} alt="" />
+          {/* <p>MEDPREDiT</p> */}
         </div>
       </IonContent>
     </IonPage>

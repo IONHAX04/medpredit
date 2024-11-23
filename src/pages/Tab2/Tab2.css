@@ -243,6 +243,19 @@
   font-weight: bold;
 }
 
+@media (min-width: 768px) {
+  .grid-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Web view: 4 items per row */
+@media (min-width: 1024px) {
+  .grid-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
 /* QUESTIONS */
 .questionContainers {
   padding: 10px;
