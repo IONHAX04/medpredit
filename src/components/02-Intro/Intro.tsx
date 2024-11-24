@@ -4,6 +4,9 @@ import React from "react";
 import "./Intro.css";
 import { useHistory } from "react-router";
 
+import introImg from "../../assets/images/starting.png";
+import introImgSvg from "../../assets/images/starting.svg";
+
 const Intro: React.FC = () => {
   const history = useHistory();
 
@@ -18,10 +21,7 @@ const Intro: React.FC = () => {
     <IonPage>
       <IonContent fullscreen>
         <div className="loginScreen">
-          <img
-            src="https://ionicframework.com/docs/img/demos/thumbnail.svg"
-            alt=""
-          />
+          <img src={introImgSvg} alt="" />
           <div className="loginContents">
             <p className="welcomeIntro">
               Welcome to <span> MEDPREDiT</span>
