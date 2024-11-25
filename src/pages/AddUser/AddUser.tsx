@@ -19,37 +19,33 @@ import { useHistory } from "react-router";
 
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
-import { Dropdown, DropdownChangeEvent } from "primereact/dropdown";
+import { Dropdown } from "primereact/dropdown";
 import { Calendar } from "primereact/calendar";
-import { Nullable } from "primereact/ts-helpers";
-import { InputNumber } from "primereact/inputnumber";
 
-interface Gender {
-  name: string;
-  code: string;
-}
+import axios from "axios";
 
-interface MaritalStatus {
-  name: string;
-  code: string;
-}
+import decrypt, { formatDate } from "../../helper";
 
 const AddUser: React.FC = () => {
-  const [value, setValue] = useState<string>("");
-  const [gender, setGender] = useState<Gender | null>(null);
-  const [marital, setMaritalStatus] = useState<MaritalStatus | null>(null);
-  const [date, setDate] = useState<Nullable<Date>>(null);
+  const [formData, setFormData] = useState({
+    refUserFname: "",
+    refUserLname: "",
+    refUserEmail: "",
+    refUserPassword: "",
+    refGender: null as string | null,
+    refMaritalStatus: null as string | null,
+    refDOB: null as Date | null,
+    refEducation: "",
+    refProfession: "",
+    refAddress: "",
+    refDistrict: "",
+    refPincode: "",
+    refUserMobileno: "",
+  });
 
-  const genderOpt: Gender[] = [
-    { name: "Male", code: "M" },
-    { name: "Female", code: "F" },
-    { name: "Transgender", code: "T" },
-  ];
+  const genderOpt: string[] = ["Male", "Female", "Transgender"];
 
-  const maritalStatus: MaritalStatus[] = [
-    { name: "Married", code: "M" },
-    { name: "Unmarried", code: "UM" },
-  ];
+  const refMaritalStatus: string[] = ["Married", "Unmarried"];
 
   const carouselRef = useRef<any>(null);
   const history = useHistory();
@@ -78,7 +74,113 @@ const AddUser: React.FC = () => {
     setCurrentIndex(index);
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    console.log("name", value);
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleDropdownChange = (e: any, field: string) => {
+    const selectedValue = e.value;
+    setFormData({
+      ...formData,
+      [field]: selectedValue,
+    });
+  };
+
+  const handleDateChange = (e: any) => {
+    const date = e.value as Date;
+
+    setFormData({
+      ...formData,
+      refDOB: date,
+    });
+  };
+
+  const handleSaveData = async () => {
+    if (currentIndex === 0) {
+      goToNextSlide();
+    } else if (currentIndex === 1) {
+      console.log(formData.refDOB);
+      const formattedDate = formData.refDOB
+        ? formatDate(formData.refDOB)
+        : null;
+
+      const userData = {
+        ...formData,
+        refDOB: formattedDate,
+      };
+      console.log("Formdata", userData);
+
+      const tokenString = localStorage.getItem("userDetails");
+      if (tokenString) {
+        try {
+          const tokenObject = JSON.parse(tokenString);
+          const token = tokenObject.token;
+
+          const response = await axios.post(
+            `${import.meta.env.VITE_API_URL}/postNewPatient`,
+            {
+              refUserFname: formData.refUserFname,
+              refUserLname: formData.refUserLname,
+              refUserEmail: formData.refUserEmail,
+              refUserPassword: formData.refUserPassword,
+              refDOB: formData.refDOB,
+              refMaritalStatus: formData.refMaritalStatus,
+              refEducation: formData.refEducation,
+              refProfession: formData.refProfession,
+              refAddress: formData.refAddress,
+              refDistrict: formData.refDistrict,
+              refPincode: formData.refPincode,
+              refUserMobileno: formData.refUserMobileno,
+              refGender: formData.refGender,
+            },
+            {
+              headers: {
+                Authorization: token,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          const data = decrypt(
+            response.data[1],
+            response.data[0],
+            import.meta.env.VITE_ENCRYPTION_KEY
+          );
+
+          console.log("Data", data);
+
+          if (data.status) {
+            history.push("/patient", {
+              direction: "forward",
+              animation: "slide",
+            });
+          }
+        } catch {
+          console.log("tesitng - false");
+        }
+      }
+    }
+  };
+
   const slides = [0, 1];
+
+  // VALIDATE PAGE INPUT VALUES
+  const isFirstCarouselValid = () => {
+    return (
+      formData.refUserFname &&
+      formData.refUserLname &&
+      formData.refUserEmail &&
+      formData.refUserPassword &&
+      formData.refGender &&
+      formData.refDOB &&
+      formData.refMaritalStatus &&
+      formData.refEducation
+    );
+  };
 
   return (
     <IonPage>
@@ -112,14 +214,24 @@ const AddUser: React.FC = () => {
               <span className="p-inputgroup-addon">
                 <i className="pi pi-user"></i>
               </span>
-              <InputText placeholder="First Name" />
+              <InputText
+                placeholder="First Name"
+                name="refUserFname"
+                value={formData.refUserFname}
+                onChange={handleInputChange}
+              />
             </div>
 
             <div className="p-inputgroup">
               <span className="p-inputgroup-addon">
                 <i className="pi pi-user"></i>
               </span>
-              <InputText placeholder="Last Name" />
+              <InputText
+                placeholder="Last Name"
+                name="refUserLname"
+                value={formData.refUserLname}
+                onChange={handleInputChange}
+              />
             </div>
 
             {/* EMAIL */}
@@ -127,7 +239,12 @@ const AddUser: React.FC = () => {
               <span className="p-inputgroup-addon">
                 <i className="pi pi-envelope"></i>
               </span>
-              <InputText placeholder="Email" />
+              <InputText
+                placeholder="Email"
+                name="refUserEmail"
+                value={formData.refUserEmail}
+                onChange={handleInputChange}
+              />
             </div>
 
             {/* PASSWORD */}
@@ -135,17 +252,22 @@ const AddUser: React.FC = () => {
               <span className="p-inputgroup-addon">
                 <i className="pi pi-lock"></i>
               </span>
-              <Password placeholder="Password" />
+              <Password
+                placeholder="Password"
+                name="refUserPassword"
+                value={formData.refUserPassword}
+                onChange={handleInputChange}
+              />
             </div>
 
-            <div className="card flex flex-column md:flex-row gap-2 mb-2 w-full">
+            <div className="card flex flex-column md:flex-row gap-1 mb-1 w-full">
               <div className="p-inputgroup flex-1">
                 <Dropdown
-                  value={gender}
-                  onChange={(e: DropdownChangeEvent) => setGender(e.value)}
+                  value={formData.refGender}
+                  onChange={(e) => handleDropdownChange(e, "refGender")}
                   options={genderOpt}
-                  optionLabel="name"
                   placeholder="Select Gender"
+                  name="refGender"
                   className="w-full"
                   checkmark={true}
                   highlightOnSelect={false}
@@ -154,21 +276,21 @@ const AddUser: React.FC = () => {
 
               <div className="p-inputgroup flex-1">
                 <Calendar
-                  value={date}
+                  value={formData.refDOB}
                   placeholder="Date of Birth"
                   className="w-full"
-                  onChange={(e) => setDate(e.value)}
+                  name="refDOB"
+                  onChange={handleDateChange}
                   dateFormat="dd/mm/yy"
                 />
               </div>
 
               <div className="p-inputgroup flex-1">
                 <Dropdown
-                  value={marital}
-                  onChange={(e: DropdownChangeEvent) =>
-                    setMaritalStatus(e.value)
-                  }
-                  options={maritalStatus}
+                  value={formData.refMaritalStatus}
+                  name="refMaritalStatus"
+                  onChange={(e) => handleDropdownChange(e, "refMaritalStatus")}
+                  options={refMaritalStatus}
                   optionLabel="name"
                   placeholder="Marital Status"
                   className="w-full"
@@ -183,17 +305,40 @@ const AddUser: React.FC = () => {
               <span className="p-inputgroup-addon">
                 <i className="pi pi-graduation-cap"></i>
               </span>
-              <InputText placeholder="Enter Educational Qualification" />
+              <InputText
+                placeholder="Enter Educational Qualification"
+                value={formData.refEducation}
+                name="refEducation"
+                onChange={handleInputChange}
+              />
             </div>
           </div>
 
           <div className="carouselDivForm">
+            {/* OCCUPATION */}
+            <div className="p-inputgroup">
+              <span className="p-inputgroup-addon">
+                <i className="pi pi-briefcase"></i>
+              </span>
+              <InputText
+                value={formData.refProfession}
+                name="refProfession"
+                onChange={handleInputChange}
+                placeholder="Occupation"
+              />
+            </div>
+
             {/* ADDRESS */}
             <div className="p-inputgroup">
               <span className="p-inputgroup-addon">
                 <i className="pi pi-home"></i>
               </span>
-              <InputText placeholder="Address" />
+              <InputText
+                placeholder="Address"
+                value={formData.refAddress}
+                name="refAddress"
+                onChange={handleInputChange}
+              />
             </div>
 
             {/* DISTRICT */}
@@ -201,7 +346,12 @@ const AddUser: React.FC = () => {
               <span className="p-inputgroup-addon">
                 <i className="pi pi-map"></i>
               </span>
-              <InputText placeholder="District" />
+              <InputText
+                placeholder="District"
+                value={formData.refDistrict}
+                name="refDistrict"
+                onChange={handleInputChange}
+              />
             </div>
 
             {/* PINCODE */}
@@ -209,15 +359,12 @@ const AddUser: React.FC = () => {
               <span className="p-inputgroup-addon">
                 <i className="pi pi-map-marker"></i>
               </span>
-              <InputNumber placeholder="Pincode" />
-            </div>
-
-            {/* OCCUPATION */}
-            <div className="p-inputgroup">
-              <span className="p-inputgroup-addon">
-                <i className="pi pi-briefcase"></i>
-              </span>
-              <InputText placeholder="Occupation" />
+              <InputText
+                placeholder="Pincode"
+                value={formData.refPincode}
+                name="refPincode"
+                onChange={handleInputChange}
+              />
             </div>
 
             {/* PHONE */}
@@ -225,7 +372,12 @@ const AddUser: React.FC = () => {
               <span className="p-inputgroup-addon">
                 <i className="pi pi-phone"></i>
               </span>
-              <InputText placeholder="Mobile" />
+              <InputText
+                placeholder="Mobile"
+                value={formData.refUserMobileno}
+                name="refUserMobileno"
+                onChange={handleInputChange}
+              />
             </div>
           </div>
         </Carousel>
@@ -247,7 +399,11 @@ const AddUser: React.FC = () => {
               ></span>
             ))}
           </div>
-          <button className="carouselButtonForm" onClick={goToNextSlide}>
+          <button
+            className="carouselButtonForm"
+            onClick={handleSaveData}
+            disabled={!isFirstCarouselValid() && currentIndex === 0}
+          >
             <IonIcon icon={chevronForwardCircle}></IonIcon>
           </button>
         </div>

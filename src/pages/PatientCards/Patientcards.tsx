@@ -12,7 +12,7 @@ interface Patient {
   lastVisit: string;
   DoctorName: string;
   refUserMobileno: string;
-  refAddress: string;
+  refDistrict: string;
   imageUrl: string;
 }
 
@@ -53,7 +53,7 @@ const Patientcards: React.FC<PatientcardsProps> = ({
         const lastVisit = patient.lastVisit || "-";
         const doctorName = patient.DoctorName || "-";
         const mobileno = patient.refUserMobileno || "-";
-        const address = patient.refAddress || "-";
+        const address = patient.refDistrict || "-";
         const imageUrl =
           patient.imageUrl ||
           "https://ionicframework.com/docs/img/demos/thumbnail.svg";
@@ -68,7 +68,7 @@ const Patientcards: React.FC<PatientcardsProps> = ({
               <div className="cardContents">
                 <div className="patiendDetails">
                   <p className="patientName">{patient.refUserCustId || "-"}</p>
-                  <p className="DoctorName">Dr. {doctorName}</p>
+                  <p className="DoctorName">Added By : {doctorName}</p>
                 </div>
                 <p className="patientName">
                   {patientFname} {patientLname}
@@ -84,7 +84,7 @@ const Patientcards: React.FC<PatientcardsProps> = ({
                   <p className="refUserMobileno">
                     <span>Mobile : </span> {mobileno}
                   </p>
-                  <p className="refAddress">{address}</p>
+                  <p className="refDistrict">{address}</p>
                 </div>
               </div>
             </div>
