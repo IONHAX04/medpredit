@@ -114,12 +114,14 @@ const AddUser: React.FC = () => {
               </span>
               <InputText placeholder="First Name" />
             </div>
+
             <div className="p-inputgroup">
               <span className="p-inputgroup-addon">
                 <i className="pi pi-user"></i>
               </span>
               <InputText placeholder="Last Name" />
             </div>
+
             {/* EMAIL */}
             <div className="p-inputgroup">
               <span className="p-inputgroup-addon">
@@ -127,8 +129,8 @@ const AddUser: React.FC = () => {
               </span>
               <InputText placeholder="Email" />
             </div>
-            {/* PASSWORD */}
 
+            {/* PASSWORD */}
             <div className="p-inputgroup">
               <span className="p-inputgroup-addon">
                 <i className="pi pi-lock"></i>
@@ -136,41 +138,45 @@ const AddUser: React.FC = () => {
               <Password placeholder="Password" />
             </div>
 
-            {/* GENDER */}
-            <Dropdown
-              value={gender}
-              onChange={(e: DropdownChangeEvent) => setGender(e.value)}
-              options={genderOpt}
-              optionLabel="name"
-              placeholder="Select Gender"
-              style={{ marginBlockEnd: "10px" }}
-              className="w-full md:w-14rem"
-              checkmark={true}
-              highlightOnSelect={false}
-            />
+            <div className="card flex flex-column md:flex-row gap-2 mb-2 w-full">
+              <div className="p-inputgroup flex-1">
+                <Dropdown
+                  value={gender}
+                  onChange={(e: DropdownChangeEvent) => setGender(e.value)}
+                  options={genderOpt}
+                  optionLabel="name"
+                  placeholder="Select Gender"
+                  className="w-full"
+                  checkmark={true}
+                  highlightOnSelect={false}
+                />
+              </div>
 
-            {/* DATE OF BIRTH */}
-            <Calendar
-              value={date}
-              placeholder="Date of Birth"
-              className="w-full md:w-14rem"
-              style={{ marginBlockEnd: "10px" }}
-              onChange={(e) => setDate(e.value)}
-              dateFormat="dd/mm/yy"
-            />
+              <div className="p-inputgroup flex-1">
+                <Calendar
+                  value={date}
+                  placeholder="Date of Birth"
+                  className="w-full"
+                  onChange={(e) => setDate(e.value)}
+                  dateFormat="dd/mm/yy"
+                />
+              </div>
 
-            {/* MARITAL STATUS */}
-            <Dropdown
-              value={marital}
-              onChange={(e: DropdownChangeEvent) => setMaritalStatus(e.value)}
-              options={maritalStatus}
-              optionLabel="name"
-              placeholder="Marital Status"
-              style={{ marginBlockEnd: "10px" }}
-              className="w-full md:w-14rem"
-              checkmark={true}
-              highlightOnSelect={false}
-            />
+              <div className="p-inputgroup flex-1">
+                <Dropdown
+                  value={marital}
+                  onChange={(e: DropdownChangeEvent) =>
+                    setMaritalStatus(e.value)
+                  }
+                  options={maritalStatus}
+                  optionLabel="name"
+                  placeholder="Marital Status"
+                  className="w-full"
+                  checkmark={true}
+                  highlightOnSelect={false}
+                />
+              </div>
+            </div>
 
             {/* EDUCATIONAL QUALIFICATION */}
             <div className="p-inputgroup">
@@ -189,6 +195,15 @@ const AddUser: React.FC = () => {
               </span>
               <InputText placeholder="Address" />
             </div>
+
+            {/* DISTRICT */}
+            <div className="p-inputgroup">
+              <span className="p-inputgroup-addon">
+                <i className="pi pi-map"></i>
+              </span>
+              <InputText placeholder="District" />
+            </div>
+
             {/* PINCODE */}
             <div className="p-inputgroup">
               <span className="p-inputgroup-addon">
@@ -196,6 +211,7 @@ const AddUser: React.FC = () => {
               </span>
               <InputNumber placeholder="Pincode" />
             </div>
+
             {/* OCCUPATION */}
             <div className="p-inputgroup">
               <span className="p-inputgroup-addon">
@@ -203,6 +219,7 @@ const AddUser: React.FC = () => {
               </span>
               <InputText placeholder="Occupation" />
             </div>
+
             {/* PHONE */}
             <div className="p-inputgroup">
               <span className="p-inputgroup-addon">

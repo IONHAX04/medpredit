@@ -26,14 +26,18 @@ const Patientcards: React.FC<PatientcardsProps> = ({
   onPaginationChange,
 }) => {
   const history = useHistory();
-  const itemsPerPage = 8;
 
-  const [currentPage, setCurrentPage] = useState(0);
-
-  const handlePageChange = (selectedPage: { selected: number }) => {
-    setCurrentPage(selectedPage.selected);
-    onPaginationChange();
-  };
+  // PAGINATION CODE
+  // const itemsPerPage = 8;
+  // const [currentPage, setCurrentPage] = useState(0);
+  // const handlePageChange = (selectedPage: { selected: number }) => {
+  //   setCurrentPage(selectedPage.selected);
+  //   onPaginationChange();
+  // };
+  // const displayedPatients = patientsData.slice(
+  //   currentPage * itemsPerPage,
+  //   (currentPage + 1) * itemsPerPage
+  // );
 
   const handleCardClick = (patient: string) => {
     history.push(`/knowAbout/${patient}`);
@@ -41,51 +45,54 @@ const Patientcards: React.FC<PatientcardsProps> = ({
 
   console.log("Patient card data ---- \n", patientsData);
 
-  const displayedPatients = patientsData.slice(
-    currentPage * itemsPerPage,
-    (currentPage + 1) * itemsPerPage
-  );
-
   return (
     <div className="patientCardsParent">
-      {displayedPatients.map((patient, index) => (
-        <div key={index}>
-          <div
-            className="patientCard"
-            onClick={() => handleCardClick(patient.refUserCustId)}
-          >
-            {" "}
-            <img
-              src={patient.imageUrl}
-              alt={`Patient ${patient.refUserFname}`}
-            />
-            <div className="cardContents">
-              <div className="patiendDetails">
-                <p className="patientName">{patient.refUserCustId}</p>
-                <p className="DoctorName">Dr. {patient.DoctorName}</p>
-              </div>
-              <p className="patientName">
-                {patient.refUserFname} {patient.refUserLname}
-              </p>
-              <p className="lastVisit">
-                <span>Last Visit : </span>
-                {patient.lastVisit}
-              </p>
-              <p className="DoctorName">
-                <span>Doctor Name : </span> {patient.DoctorName}
-              </p>
-              <div className="footer">
-                <p className="refUserMobileno">
-                  <span>Mobile : </span> {patient.refUserMobileno}
+      {patientsData.map((patient, index) => {
+        const patientFname = patient.refUserFname || "-";
+        const patientLname = patient.refUserLname || "-";
+        const lastVisit = patient.lastVisit || "-";
+        const doctorName = patient.DoctorName || "-";
+        const mobileno = patient.refUserMobileno || "-";
+        const address = patient.refAddress || "-";
+        const imageUrl =
+          patient.imageUrl ||
+          "https://ionicframework.com/docs/img/demos/thumbnail.svg";
+
+        return (
+          <div key={index}>
+            <div
+              className="patientCard"
+              onClick={() => handleCardClick(patient.refUserCustId)}
+            >
+              <img src={imageUrl} alt={`Patient ${patientFname}`} />
+              <div className="cardContents">
+                <div className="patiendDetails">
+                  <p className="patientName">{patient.refUserCustId || "-"}</p>
+                  <p className="DoctorName">Dr. {doctorName}</p>
+                </div>
+                <p className="patientName">
+                  {patientFname} {patientLname}
                 </p>
-                <p className="refAddress">{patient.refAddress}</p>
+                <p className="lastVisit">
+                  <span>Last Visit : </span>
+                  {lastVisit}
+                </p>
+                <p className="DoctorName">
+                  <span>Doctor Name : </span> {doctorName}
+                </p>
+                <div className="footer">
+                  <p className="refUserMobileno">
+                    <span>Mobile : </span> {mobileno}
+                  </p>
+                  <p className="refAddress">{address}</p>
+                </div>
               </div>
             </div>
+            {index < patientsData.length - 1 && <Divider />}
           </div>
-          {index < patientsData.length - 1 && <Divider />}
-        </div>
-      ))}
-      <ReactPaginate
+        );
+      })}
+      {/* <ReactPaginate
         previousLabel={"Previous"}
         nextLabel={"Next"}
         breakLabel={"..."}
@@ -95,7 +102,7 @@ const Patientcards: React.FC<PatientcardsProps> = ({
         onPageChange={handlePageChange}
         containerClassName={"pagination"}
         activeClassName={"active"}
-      />
+      /> */}
     </div>
   );
 };
