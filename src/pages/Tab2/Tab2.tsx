@@ -12,103 +12,33 @@ import {
 } from "@ionic/react";
 import "./Tab2.css";
 import { addCircleOutline, chevronDownOutline } from "ionicons/icons";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Divider } from "primereact/divider";
 import Patientcards from "../PatientCards/Patientcards";
 import { useHistory } from "react-router";
+import axios from "axios";
+import decrypt from "../../helper";
 
-const patientsData = [
-  {
-    patientId: "NCD10001",
-    name: "Patient Name 1",
-    lastVisit: "22/11/2024",
-    doctorName: "Doctor Name 1",
-    contactNumber: "9292929292",
-    district: "District Name 1",
-    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-  },
-  {
-    patientId: "NCD10002",
-    name: "Patient Name 2",
-    lastVisit: "22/11/2024",
-    doctorName: "Doctor Name 2",
-    contactNumber: "9292929292",
-    district: "District Name 2",
-    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-  },
-  {
-    patientId: "NCD10003",
-    name: "Patient Name 3",
-    lastVisit: "22/11/2024",
-    doctorName: "Doctor Name 3",
-    contactNumber: "9292929292",
-    district: "District Name 3",
-    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-  },
-  {
-    patientId: "NCD10004",
-    name: "Patient Name 4",
-    lastVisit: "22/11/2024",
-    doctorName: "Doctor Name 4",
-    contactNumber: "9292929292",
-    district: "District Name 4",
-    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-  },
-  {
-    patientId: "NCD10005",
-    name: "Patient Name 5",
-    lastVisit: "22/11/2024",
-    doctorName: "Doctor Name 5",
-    contactNumber: "9292929292",
-    district: "District Name 5",
-    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-  },
-  {
-    patientId: "NCD10006",
-    name: "Patient Name 6",
-    lastVisit: "22/11/2024",
-    doctorName: "Doctor Name 6",
-    contactNumber: "9292929292",
-    district: "District Name 6",
-    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-  },
-  {
-    patientId: "NCD10007",
-    name: "Patient Name 7",
-    lastVisit: "22/11/2024",
-    doctorName: "Doctor Name 7",
-    contactNumber: "9292929292",
-    district: "District Name 7",
-    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-  },
-  {
-    patientId: "NCD10008",
-    name: "Patient Name 8",
-    lastVisit: "22/11/2024",
-    doctorName: "Doctor Name 8",
-    contactNumber: "9292929292",
-    district: "District Name 8",
-    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-  },
-  {
-    patientId: "NCD10009",
-    name: "Patient Name 9",
-    lastVisit: "22/11/2024",
-    doctorName: "Doctor Name 9",
-    contactNumber: "9292929292",
-    district: "District Name 9",
-    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-  },
-  {
-    patientId: "NCD100010",
-    name: "Patient Name 10",
-    lastVisit: "22/11/2024",
-    doctorName: "Doctor Name 10",
-    contactNumber: "9292929292",
-    district: "District Name 10",
-    imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-  },
-];
+// const patientsData = [
+//   {
+//     patientId: "NCD10001",
+//     name: "Patient Name 1",
+//     lastVisit: "22/11/2024",
+//     doctorName: "Doctor Name 1",
+//     contactNumber: "9292929292",
+//     district: "District Name 1",
+//     imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
+//   },
+//   {
+//     patientId: "NCD10002",
+//     name: "Patient Name 2",
+//     lastVisit: "22/11/2024",
+//     doctorName: "Doctor Name 2",
+//     contactNumber: "9292929292",
+//     district: "District Name 2",
+//     imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
+//   },
+// ];
 
 const Tab2: React.FC = () => {
   const history = useHistory();
@@ -117,6 +47,9 @@ const Tab2: React.FC = () => {
   const filterModal = useRef<HTMLIonModalElement>(null);
 
   const contentRef = useRef<HTMLIonContentElement>(null);
+
+  const [patientsData, setPatientData] = useState([]);
+
   const handlePaginationChange = () => {
     if (contentRef.current) {
       contentRef.current.scrollToTop(300);
@@ -129,6 +62,46 @@ const Tab2: React.FC = () => {
       animation: "slide",
     });
   };
+
+  useEffect(() => {
+    const tokenString = localStorage.getItem("userDetails");
+    if (tokenString) {
+      try {
+        const tokenObject = JSON.parse(tokenString);
+        const token = tokenObject.token;
+
+        axios
+          .get(`${import.meta.env.VITE_API_URL}/getPatientData`, {
+            headers: {
+              Authorization: token,
+              "Content-Type": "application/json",
+            },
+          })
+          .then((response) => {
+            console.log("Response:", response.data);
+            const data = decrypt(
+              response.data[1],
+              response.data[0],
+              import.meta.env.VITE_ENCRYPTION_KEY
+            );
+            console.log("data", data);
+            if (data.status) {
+              setPatientData(data.data);
+              console.log("Patient data", patientsData);
+            } else {
+              console.log("Data consoled false - chekc this");
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching patient data:", error);
+          });
+      } catch (error) {
+        console.error("Error parsing token:", error);
+      }
+    } else {
+      console.error("No token found in localStorage.");
+    }
+  }, []);
 
   return (
     <IonPage>

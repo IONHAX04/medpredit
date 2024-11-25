@@ -6,12 +6,13 @@ import ReactPaginate from "react-paginate";
 import { useHistory } from "react-router";
 
 interface Patient {
-  patientId: string;
-  name: string;
+  refUserCustId: string;
+  refUserFname: string;
+  refUserLname: string;
   lastVisit: string;
-  doctorName: string;
-  contactNumber: string;
-  district: string;
+  DoctorName: string;
+  refUserMobileno: string;
+  refAddress: string;
   imageUrl: string;
 }
 
@@ -38,6 +39,8 @@ const Patientcards: React.FC<PatientcardsProps> = ({
     history.push(`/knowAbout/${patient}`);
   };
 
+  console.log("Patient card data ---- \n", patientsData);
+
   const displayedPatients = patientsData.slice(
     currentPage * itemsPerPage,
     (currentPage + 1) * itemsPerPage
@@ -49,28 +52,33 @@ const Patientcards: React.FC<PatientcardsProps> = ({
         <div key={index}>
           <div
             className="patientCard"
-            onClick={() => handleCardClick(patient.patientId)}
+            onClick={() => handleCardClick(patient.refUserCustId)}
           >
             {" "}
-            <img src={patient.imageUrl} alt={`Patient ${patient.name}`} />
+            <img
+              src={patient.imageUrl}
+              alt={`Patient ${patient.refUserFname}`}
+            />
             <div className="cardContents">
               <div className="patiendDetails">
-                <p className="patientName">{patient.patientId}</p>
-                <p className="doctorName">Dr. {patient.doctorName}</p>
+                <p className="patientName">{patient.refUserCustId}</p>
+                <p className="DoctorName">Dr. {patient.DoctorName}</p>
               </div>
-              <p className="patientName">{patient.name}</p>
+              <p className="patientName">
+                {patient.refUserFname} {patient.refUserLname}
+              </p>
               <p className="lastVisit">
                 <span>Last Visit : </span>
                 {patient.lastVisit}
               </p>
-              <p className="doctorName">
-                <span>Doctor Name : </span> {patient.doctorName}
+              <p className="DoctorName">
+                <span>Doctor Name : </span> {patient.DoctorName}
               </p>
               <div className="footer">
-                <p className="contactNumber">
-                  <span>Mobile : </span> {patient.contactNumber}
+                <p className="refUserMobileno">
+                  <span>Mobile : </span> {patient.refUserMobileno}
                 </p>
-                <p className="district">{patient.district}</p>
+                <p className="refAddress">{patient.refAddress}</p>
               </div>
             </div>
           </div>

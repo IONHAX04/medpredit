@@ -112,7 +112,13 @@ const AddUser: React.FC = () => {
               <span className="p-inputgroup-addon">
                 <i className="pi pi-user"></i>
               </span>
-              <InputText placeholder="Name" />
+              <InputText placeholder="First Name" />
+            </div>
+            <div className="p-inputgroup">
+              <span className="p-inputgroup-addon">
+                <i className="pi pi-user"></i>
+              </span>
+              <InputText placeholder="Last Name" />
             </div>
             {/* EMAIL */}
             <div className="p-inputgroup">
@@ -122,16 +128,13 @@ const AddUser: React.FC = () => {
               <InputText placeholder="Email" />
             </div>
             {/* PASSWORD */}
-            <Password
-              value={value}
-              className=""
-              style={{ marginBlockEnd: "10px" }}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setValue(e.target.value)
-              }
-              placeholder="Password"
-              toggleMask
-            />
+
+            <div className="p-inputgroup">
+              <span className="p-inputgroup-addon">
+                <i className="pi pi-lock"></i>
+              </span>
+              <Password placeholder="Password" />
+            </div>
 
             {/* GENDER */}
             <Dropdown
@@ -156,14 +159,6 @@ const AddUser: React.FC = () => {
               dateFormat="dd/mm/yy"
             />
 
-            {/* EDUCATIONAL QUALIFICATION */}
-            <div className="p-inputgroup">
-              <span className="p-inputgroup-addon">
-                <i className="pi pi-graduation-cap"></i>
-              </span>
-              <InputText placeholder="Enter Educational Qualification" />
-            </div>
-
             {/* MARITAL STATUS */}
             <Dropdown
               value={marital}
@@ -176,6 +171,14 @@ const AddUser: React.FC = () => {
               checkmark={true}
               highlightOnSelect={false}
             />
+
+            {/* EDUCATIONAL QUALIFICATION */}
+            <div className="p-inputgroup">
+              <span className="p-inputgroup-addon">
+                <i className="pi pi-graduation-cap"></i>
+              </span>
+              <InputText placeholder="Enter Educational Qualification" />
+            </div>
           </div>
 
           <div className="carouselDivForm">

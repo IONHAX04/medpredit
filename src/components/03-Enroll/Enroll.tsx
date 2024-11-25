@@ -7,6 +7,8 @@ import {
   IonItem,
   IonModal,
   IonPage,
+  IonText,
+  IonToast,
   IonToolbar,
 } from "@ionic/react";
 import React, { useEffect, useRef, useState } from "react";
@@ -16,6 +18,12 @@ import { Divider } from "primereact/divider";
 import { Avatar } from "primereact/avatar";
 import { arrowForwardOutline } from "ionicons/icons";
 import { useHistory } from "react-router";
+
+import axios from "axios";
+
+import decrypt from "../../helper";
+import { InputText } from "primereact/inputtext";
+import { Password } from "primereact/password";
 
 const Enroll: React.FC = () => {
   const modal = useRef<HTMLIonModalElement>(null);
@@ -29,6 +37,15 @@ const Enroll: React.FC = () => {
   >(undefined);
 
   const [isSignInVisible, setIsSignInVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+
+  const [signInData, setSignInData] = useState({
+    username: "",
+    password: "",
+  });
 
   useEffect(() => {
     setPresentingElement(page.current);
@@ -45,6 +62,56 @@ const Enroll: React.FC = () => {
     });
   };
 
+  const handleSignIn = async () => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/user/singin`,
+        signInData
+      );
+      console.log("Sign In Successful", response.data);
+
+      const data = decrypt(
+        response.data[1],
+        response.data[0],
+        import.meta.env.VITE_ENCRYPTION_KEY
+      );
+
+      console.log("Data", data);
+
+      if (data.status) {
+        const userDetails = {
+          roleType: data.roleType,
+          token: "Bearer " + data.token,
+        };
+        localStorage.setItem("userDetails", JSON.stringify(userDetails));
+
+        history.push("/home", {
+          direction: "forward",
+          animation: "slide",
+        });
+      } else {
+        setErrorMessage("Invalid username or password");
+
+        setToastMessage("Invalid username or password");
+        setShowToast(true);
+      }
+    } catch (error) {
+      console.error("Error during Sign In:", error);
+      setToastMessage("An error occurred. Please try again.");
+      setShowToast(true);
+    }
+  };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    isSignIn: boolean = false
+  ) => {
+    const { name, value } = e.target;
+    if (isSignIn) {
+      setSignInData((prev) => ({ ...prev, [name]: value }));
+    }
+  };
+
   const handleContinue = () => {
     dismiss();
     history.push("/home", {
@@ -59,7 +126,7 @@ const Enroll: React.FC = () => {
         <div
           className="signIn"
           style={{
-            display: isSignInVisible ? "block" : "none",
+            display: isSignInVisible ? "none" : "block",
             overflow: "auto",
           }}
         >
@@ -70,14 +137,43 @@ const Enroll: React.FC = () => {
             </p>
 
             <div className="formContentSignIn ion-padding-top">
-              <p>Email</p>
-              <input type="email" required />
-              <p>Password</p>
-              <input type="password" required />
+              <div className="input-container">
+                <div className="p-inputgroup flex-1">
+                  <span className="p-inputgroup-addon">
+                    <i className="pi pi-user"></i>
+                  </span>
+                  <InputText
+                    name="username"
+                    required
+                    value={signInData.username}
+                    style={{ inlineSize: "100%", boxSizing: "border-box" }}
+                    onChange={(e) => handleInputChange(e, true)}
+                    placeholder="Enter mobile or email"
+                  />
+                </div>
+                <div className="p-inputgroup flex-1">
+                  <span className="p-inputgroup-addon">
+                    <i className="pi pi-lock"></i>
+                  </span>
+                  <Password
+                    type="password"
+                    name="password"
+                    placeholder="Enter Password"
+                    toggleMask
+                    required
+                    style={{ inlineSize: "100%", boxSizing: "border-box" }}
+                    value={signInData.password}
+                    onChange={(e) => handleInputChange(e, true)}
+                  />
+                </div>
+              </div>
               <p className="forgotPassword">Forgot Password ?</p>
+              {errorMessage && (
+                <IonText color="danger">{errorMessage}</IonText>
+              )}{" "}
               <button
                 className="ion-margin-top ion-margin-bottom"
-                onClick={handleSignUp}
+                onClick={handleSignIn}
               >
                 Sign In
               </button>
@@ -85,23 +181,23 @@ const Enroll: React.FC = () => {
                 <b>OR</b>
               </Divider>
               <div className="googleSignIn">
-                <Avatar icon="pi pi-phone" size="large" shape="circle" />
+                <Avatar icon="pi pi-envelope" size="large" shape="circle" />
               </div>
-              <div className="signUp">
+              {/* <div className="signUp">
                 <p className="ion-padding-top">
                   Don't have an account?
                   <span onClick={() => setIsSignInVisible(false)}>
                     &nbsp; Sign up here!
                   </span>{" "}
                 </p>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
         <div
           className="register"
           style={{
-            display: isSignInVisible ? "none" : "block",
+            display: isSignInVisible ? "block" : "none",
             overflow: "auto",
           }}
         >
