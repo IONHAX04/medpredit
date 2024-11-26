@@ -78,13 +78,11 @@ const Tab2: React.FC = () => {
             },
           })
           .then((response) => {
-            console.log("Response:", response.data);
             const data = decrypt(
               response.data[1],
               response.data[0],
               import.meta.env.VITE_ENCRYPTION_KEY
             );
-            console.log("data", data);
             if (data.status) {
               setPatientData(data.data);
               console.log("Patient data", patientsData);

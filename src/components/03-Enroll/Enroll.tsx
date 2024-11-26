@@ -68,15 +68,12 @@ const Enroll: React.FC = () => {
         `${import.meta.env.VITE_API_URL}/user/singin`,
         signInData
       );
-      console.log("Sign In Successful", response.data);
 
       const data = decrypt(
         response.data[1],
         response.data[0],
         import.meta.env.VITE_ENCRYPTION_KEY
       );
-
-      console.log("Data", data);
 
       if (data.status) {
         const userDetails = {

@@ -1,28 +1,30 @@
-import { IonHeader, IonTitle } from "@ionic/react";
 import { Divider } from "primereact/divider";
 import React from "react";
 import { useHistory } from "react-router";
 
 interface CardData {
-  id: string;
-  patientId: string;
-  patientName: string;
-  riskFactor: string;
-  completionPercentage: number;
-  filledBy: string;
-  filledDate: string;
+  refQCategoryId: number;
+  refCategoryLabel: string;
+  completionPercentage?: number;
+  filledBy?: string;
+  filledDate?: string;
 }
 
 interface SubCardsProps {
   data: CardData[];
   categoryId: string;
+  categroyName: string;
 }
 
-const SubCards: React.FC<SubCardsProps> = ({ data, categoryId }) => {
+const SubCards: React.FC<SubCardsProps> = ({
+  data,
+  categoryId,
+  categroyName,
+}) => {
   const history = useHistory();
 
-  const handleCardClick = (cardTitle: string) => {
-    history.push(`/questions/${categoryId}/${cardTitle}`);
+  const handleCardClick = (cardTitle: any) => {
+    history.push(`/questions/${categroyName}/${cardTitle}`);
   };
 
   return (
@@ -30,10 +32,10 @@ const SubCards: React.FC<SubCardsProps> = ({ data, categoryId }) => {
       {data.map((card) => (
         <>
           <div
-            key={card.id}
+            key={card.refQCategoryId}
             className="subCards"
-            onClick={() => handleCardClick(card.id)} // Navigate on click
-            style={{ cursor: "pointer" }} // Add pointer cursor for better UX
+            onClick={() => handleCardClick(card.refQCategoryId)}
+            style={{ cursor: "pointer" }}
           >
             <img
               src="https://ionicframework.com/docs/img/demos/thumbnail.svg"
@@ -41,7 +43,7 @@ const SubCards: React.FC<SubCardsProps> = ({ data, categoryId }) => {
             />
             <div className="cardConts">
               <div className="cardHeader">
-                <p className="factorHeading">{card.riskFactor}</p>
+                <p className="factorHeading">{card.refCategoryLabel}</p>
                 <div className="circularProgress">
                   <svg
                     width="50"

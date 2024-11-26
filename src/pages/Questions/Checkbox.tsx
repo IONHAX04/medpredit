@@ -1,4 +1,5 @@
 import { IonCheckbox } from "@ionic/react";
+import { Divider } from "primereact/divider";
 import React, { useState } from "react";
 
 interface CheckboxProps {
@@ -21,6 +22,7 @@ const Checkbox: React.FC<CheckboxProps> = ({ label }) => {
             {label}
           </label>
         </div>
+        <Divider />
       </div>
     </div>
   );

@@ -2,9 +2,8 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 
 interface CardData {
-  id: string;
-  imageUrl: string;
-  title: string;
+  refQCategoryId: number;
+  refCategoryLabel: string;
 }
 
 interface KnowCardsValues {
@@ -14,9 +13,9 @@ interface KnowCardsValues {
 const KnowCards: React.FC<KnowCardsValues> = ({ cardData }) => {
   const history = useHistory();
 
-  const handleCardClick = (categoryId: string) => {
+  const handleCardClick = (categoryId: number, categroyName: string) => {
     console.log("card ---", categoryId);
-    history.push(`/subCategories/${categoryId}`);
+    history.push(`/subCategories/${categoryId}/${categroyName}`);
   };
 
   return (
@@ -26,12 +25,17 @@ const KnowCards: React.FC<KnowCardsValues> = ({ cardData }) => {
         {cardData.map((card) => (
           <div
             className="grid-item"
-            key={card.id}
-            onClick={() => handleCardClick(card.title)}
+            key={card.refQCategoryId}
+            onClick={() =>
+              handleCardClick(card.refQCategoryId, card.refCategoryLabel)
+            }
           >
             <div className="knowCard">
-              <img src={card.imageUrl} alt={card.title} />
-              <p>{card.title}</p>
+              <img
+                src="https://ionicframework.com/docs/img/demos/thumbnail.svg"
+                alt={card.refCategoryLabel}
+              />
+              <p>{card.refCategoryLabel}</p>
             </div>
           </div>
         ))}

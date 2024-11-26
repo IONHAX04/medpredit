@@ -8,77 +8,106 @@ import {
   IonSegment,
   IonSegmentButton,
   IonSegmentContent,
-  IonSegmentView,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
 import KnowCards from "../../pages/KnowCards/KnowCards";
+import axios from "axios";
+import decrypt from "../../helper";
 
 const KnowAboutPatient: React.FC = () => {
   const { patient } = useParams<{ patient: string }>();
-  console.log("patientId", patient);
 
-  const askFor = [
-    {
-      id: "1",
-      imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-      title: "Risk Factor",
-    },
-    {
-      id: "2",
-      imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-      title: "Symptoms",
-    },
-    {
-      id: "3",
-      imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-      title: "Previous Illness",
-    },
-    {
-      id: "4",
-      imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-      title: "Treatment Details",
-    },
-  ];
+  const [categories, setCategories] = useState<
+    { refQCategoryId: number; refCategoryLabel: string }[]
+  >([]);
+  const [selectedValue, setSelectedValue] = useState<string>("");
+  const [subCategoryData, setSubCategoryData] = useState<
+    { refQCategoryId: number; refCategoryLabel: string }[]
+  >([]);
+  const tokenString: any = localStorage.getItem("userDetails");
 
-  const lookFor = [
-    {
-      id: "1",
-      imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-      title: "General Examination",
-    },
-    {
-      id: "2",
-      imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-      title: "Vital Signs",
-    },
-    {
-      id: "3",
-      imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-      title: "Systemic Examination",
-    },
-  ];
+  const tokenObject = JSON.parse(tokenString);
+  const token = tokenObject.token;
 
-  const investigations = [
-    {
-      id: "1",
-      imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-      title: "Blood Sugar Level",
-    },
-    {
-      id: "2",
-      imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-      title: "Dyslipidemia",
-    },
-    {
-      id: "3",
-      imageUrl: "https://ionicframework.com/docs/img/demos/thumbnail.svg",
-      title: "Renal Compication",
-    },
-  ];
+  useEffect(() => {
+    if (tokenString) {
+      try {
+        axios
+          .get(`${import.meta.env.VITE_API_URL}/getMainCategory`, {
+            headers: {
+              Authorization: token,
+              "Content-Type": "application/json",
+            },
+          })
+          .then((response) => {
+            const data = decrypt(
+              response.data[1],
+              response.data[0],
+              import.meta.env.VITE_ENCRYPTION_KEY
+            );
+            console.log("data -- ", data);
+
+            if (data.data.length > 0) {
+              setCategories(data.data);
+              const firstCategory = data.data[0];
+              console.log("firstCategory", firstCategory);
+              setSelectedValue(firstCategory.refCategoryLabel);
+              subMainCategory(firstCategory.refQCategoryId);
+            }
+          });
+      } catch (error) {
+        console.error("Error fetching patient data:", error);
+      }
+    }
+  }, [tokenString]);
+
+  const subMainCategory = async (categoryId: number) => {
+    try {
+      const subCategory = await axios.post(
+        `${import.meta.env.VITE_API_URL}/getSubMainCategory`,
+        {
+          SubCategoryId: categoryId,
+        },
+        {
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Subcategory response:", subCategory);
+
+      const data = decrypt(
+        subCategory.data[1],
+        subCategory.data[0],
+        import.meta.env.VITE_ENCRYPTION_KEY
+      );
+
+      console.log("Subcategory data:", data.data);
+
+      if (data.status) {
+        setSubCategoryData(data.data);
+      }
+    } catch (error) {
+      console.error("Error fetching subcategories:", error);
+    }
+  };
+
+  const handleSegmentChange = (value: any) => {
+    setSelectedValue(value);
+
+    const selectedCategory = categories.find(
+      (category) => category.refCategoryLabel === value
+    );
+    if (selectedCategory) {
+      console.log("selectedCategory", selectedCategory);
+      subMainCategory(selectedCategory.refQCategoryId);
+    }
+  };
 
   return (
     <IonPage>
@@ -92,37 +121,34 @@ const KnowAboutPatient: React.FC = () => {
       </IonHeader>
       <IonContent>
         <IonToolbar>
-          <IonSegment value="ask" scrollable={true}>
-            <IonSegmentButton value="ask" contentId="ask">
-              <IonLabel>Ask For</IonLabel>
-            </IonSegmentButton>
-            <IonSegmentButton value="look" contentId="look">
-              <IonLabel>Look For</IonLabel>
-            </IonSegmentButton>
-            <IonSegmentButton value="health" contentId="health">
-              <IonLabel>Previous Health</IonLabel>
-            </IonSegmentButton>
-            <IonSegmentButton value="investigation" contentId="investigation">
-              <IonLabel>Investigation</IonLabel>
-            </IonSegmentButton>
-            <IonSegmentButton value="report" contentId="report">
-              <IonLabel>Report</IonLabel>
-            </IonSegmentButton>
+          <IonSegment
+            value={selectedValue}
+            scrollable={true}
+            onIonChange={(e) => handleSegmentChange(e.detail.value!)}
+          >
+            {categories.map((category) => (
+              <IonSegmentButton
+                key={category.refQCategoryId}
+                value={category.refCategoryLabel}
+                contentId={category.refCategoryLabel}
+              >
+                <IonLabel>{category.refCategoryLabel}</IonLabel>
+              </IonSegmentButton>
+            ))}
           </IonSegment>
         </IonToolbar>
-        <IonSegmentView>
-          <IonSegmentContent id="ask">
-            <KnowCards cardData={askFor} />
-          </IonSegmentContent>
-          <IonSegmentContent id="look">
-            <KnowCards cardData={lookFor} />
-          </IonSegmentContent>
-          <IonSegmentContent id="health">Health</IonSegmentContent>
-          <IonSegmentContent id="investigation">
-            <KnowCards cardData={investigations} />
-          </IonSegmentContent>
-          <IonSegmentContent id="report">Report</IonSegmentContent>
-        </IonSegmentView>
+        <div>
+          {categories.map((category) => (
+            <IonSegmentContent
+              key={category.refQCategoryId}
+              id={category.refCategoryLabel}
+            >
+              {selectedValue === category.refCategoryLabel && (
+                <KnowCards cardData={subCategoryData} />
+              )}
+            </IonSegmentContent>
+          ))}
+        </div>
       </IonContent>
     </IonPage>
   );

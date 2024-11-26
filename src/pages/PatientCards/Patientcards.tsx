@@ -14,6 +14,7 @@ interface Patient {
   refUserMobileno: string;
   refDistrict: string;
   imageUrl: string;
+  refUserId: number;
 }
 
 interface PatientcardsProps {
@@ -39,8 +40,9 @@ const Patientcards: React.FC<PatientcardsProps> = ({
   //   (currentPage + 1) * itemsPerPage
   // );
 
-  const handleCardClick = (patient: string) => {
-    history.push(`/knowAbout/${patient}`);
+  const handleCardClick = (patient: string, patientId: number) => {
+    localStorage.setItem("currentPatientId", patientId.toString());
+    history.push(`/knowAbout/${patient}/${patientId}`);
   };
 
   console.log("Patient card data ---- \n", patientsData);
@@ -62,7 +64,9 @@ const Patientcards: React.FC<PatientcardsProps> = ({
           <div key={index}>
             <div
               className="patientCard"
-              onClick={() => handleCardClick(patient.refUserCustId)}
+              onClick={() =>
+                handleCardClick(patient.refUserCustId, patient.refUserId)
+              }
             >
               <img src={imageUrl} alt={`Patient ${patientFname}`} />
               <div className="cardContents">

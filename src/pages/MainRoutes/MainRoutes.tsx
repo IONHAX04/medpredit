@@ -86,13 +86,13 @@ const MainRoutes: React.FC = () => {
         <Route path="/enroll">
           <Enroll />
         </Route>
-        <Route path="/subCategories/:categoryId">
+        <Route path="/subCategories/:categoryId/:categroyName">
           <SubCategories />
         </Route>
-        <Route path="/knowAbout/:patient">
+        <Route path="/knowAbout/:patient/:patientId">
           <KnowAboutPatient />
         </Route>
-        <Route path="/questions/:categoryId/:cardTitle">
+        <Route path="/questions/:categroyName/:cardTitle">
           <Questions />
         </Route>
         <Route path="/addQuestions">
