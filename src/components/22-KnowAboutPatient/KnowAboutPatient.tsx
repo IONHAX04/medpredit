@@ -49,12 +49,10 @@ const KnowAboutPatient: React.FC = () => {
               response.data[0],
               import.meta.env.VITE_ENCRYPTION_KEY
             );
-            console.log("data -- ", data);
 
             if (data.data.length > 0) {
               setCategories(data.data);
               const firstCategory = data.data[0];
-              console.log("firstCategory", firstCategory);
               setSelectedValue(firstCategory.refCategoryLabel);
               subMainCategory(firstCategory.refQCategoryId);
             }
@@ -79,15 +77,12 @@ const KnowAboutPatient: React.FC = () => {
           },
         }
       );
-      console.log("Subcategory response:", subCategory);
 
       const data = decrypt(
         subCategory.data[1],
         subCategory.data[0],
         import.meta.env.VITE_ENCRYPTION_KEY
       );
-
-      console.log("Subcategory data:", data.data);
 
       if (data.status) {
         setSubCategoryData(data.data);
@@ -104,7 +99,6 @@ const KnowAboutPatient: React.FC = () => {
       (category) => category.refCategoryLabel === value
     );
     if (selectedCategory) {
-      console.log("selectedCategory", selectedCategory);
       subMainCategory(selectedCategory.refQCategoryId);
     }
   };

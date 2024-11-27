@@ -58,7 +58,6 @@ const AddUser: React.FC = () => {
     }
   };
 
-  console.log("currentIndex", currentIndex);
   const goToNextSlide = () => {
     if (currentIndex === slides.length - 1) {
       history.push("/patient", {
@@ -76,7 +75,6 @@ const AddUser: React.FC = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log("name", value);
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -104,7 +102,6 @@ const AddUser: React.FC = () => {
     if (currentIndex === 0) {
       goToNextSlide();
     } else if (currentIndex === 1) {
-      console.log(formData.refDOB);
       const formattedDate = formData.refDOB
         ? formatDate(formData.refDOB)
         : null;
@@ -113,7 +110,6 @@ const AddUser: React.FC = () => {
         ...formData,
         refDOB: formattedDate,
       };
-      console.log("Formdata", userData);
 
       const tokenString = localStorage.getItem("userDetails");
       if (tokenString) {
@@ -151,8 +147,6 @@ const AddUser: React.FC = () => {
             import.meta.env.VITE_ENCRYPTION_KEY
           );
 
-          console.log("Data", data);
-
           if (data.status) {
             history.push("/patient", {
               direction: "forward",
@@ -160,7 +154,7 @@ const AddUser: React.FC = () => {
             });
           }
         } catch {
-          console.log("tesitng - false");
+          console.error("tesitng - false");
         }
       }
     }

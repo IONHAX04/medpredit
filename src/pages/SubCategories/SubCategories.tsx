@@ -50,7 +50,6 @@ const SubCategories: React.FC = () => {
               response.data[0],
               import.meta.env.VITE_ENCRYPTION_KEY
             );
-            console.log("data ---- ", data.data);
             setCategories(data.data);
           });
       } catch (error) {

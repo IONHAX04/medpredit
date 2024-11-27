@@ -51,7 +51,11 @@ const Tab5: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen>
         <IonToolbar>
-          <IonSegment value="questions" scrollable={true}>
+          <IonSegment
+            value="questions"
+            scrollable={true}
+            onIonChange={(e) => setSelectedSegment(e.detail.value!)}
+          >
             <IonSegmentButton value="questions" contentId="questions">
               <IonLabel>Questions</IonLabel>
             </IonSegmentButton>

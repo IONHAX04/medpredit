@@ -23,8 +23,8 @@ const SubCards: React.FC<SubCardsProps> = ({
 }) => {
   const history = useHistory();
 
-  const handleCardClick = (cardTitle: any) => {
-    history.push(`/questions/${categroyName}/${cardTitle}`);
+  const handleCardClick = (cardTitle: any, refCategoryLabel: any) => {
+    history.push(`/questions/${refCategoryLabel}/${cardTitle}`);
   };
 
   return (
@@ -34,7 +34,9 @@ const SubCards: React.FC<SubCardsProps> = ({
           <div
             key={card.refQCategoryId}
             className="subCards"
-            onClick={() => handleCardClick(card.refQCategoryId)}
+            onClick={() =>
+              handleCardClick(card.refQCategoryId, card.refCategoryLabel)
+            }
             style={{ cursor: "pointer" }}
           >
             <img

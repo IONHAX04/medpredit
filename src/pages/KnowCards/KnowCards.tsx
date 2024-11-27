@@ -14,7 +14,6 @@ const KnowCards: React.FC<KnowCardsValues> = ({ cardData }) => {
   const history = useHistory();
 
   const handleCardClick = (categoryId: number, categroyName: string) => {
-    console.log("card ---", categoryId);
     history.push(`/subCategories/${categoryId}/${categroyName}`);
   };
 

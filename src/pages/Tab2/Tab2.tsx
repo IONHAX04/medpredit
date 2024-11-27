@@ -85,9 +85,8 @@ const Tab2: React.FC = () => {
             );
             if (data.status) {
               setPatientData(data.data);
-              console.log("Patient data", patientsData);
             } else {
-              console.log("Data consoled false - chekc this");
+              console.error("Data consoled false - chekc this");
             }
           })
           .catch((error) => {

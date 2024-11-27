@@ -92,7 +92,7 @@ const MainRoutes: React.FC = () => {
         <Route path="/knowAbout/:patient/:patientId">
           <KnowAboutPatient />
         </Route>
-        <Route path="/questions/:categroyName/:cardTitle">
+        <Route path="/questions/:refCategoryLabel/:cardTitle">
           <Questions />
         </Route>
         <Route path="/addQuestions">

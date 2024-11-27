@@ -45,8 +45,6 @@ const Patientcards: React.FC<PatientcardsProps> = ({
     history.push(`/knowAbout/${patient}/${patientId}`);
   };
 
-  console.log("Patient card data ---- \n", patientsData);
-
   return (
     <div className="patientCardsParent">
       {patientsData.map((patient, index) => {
