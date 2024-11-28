@@ -20,9 +20,10 @@ interface YesNoProps {
   };
 
   onOptionSelect: (refOptionId: number, forwardQId: string) => void;
+  onEdit: (questionId: number, forwardQId: string) => void;
 }
 
-const YesNo: React.FC<YesNoProps> = ({ label, onOptionSelect }) => {
+const YesNo: React.FC<YesNoProps> = ({ label, onOptionSelect, onEdit }) => {
   const [selectedValue, setSelectedValue] = useState<number | null>(null);
 
   useEffect(() => {}, []);
@@ -32,6 +33,7 @@ const YesNo: React.FC<YesNoProps> = ({ label, onOptionSelect }) => {
     console.log("refNextQn", refNextQn);
     console.log("refOptionId", refOptionId);
     onOptionSelect(refOptionId, refNextQn);
+    onEdit(label.questionId, refNextQn);
   };
 
   return (

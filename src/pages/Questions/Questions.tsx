@@ -1,4 +1,5 @@
 import {
+  IonAlert,
   IonBackButton,
   IonButtons,
   IonContent,
@@ -63,6 +64,12 @@ const Questions: React.FC = () => {
     { questionId: any; answer: string | number }[]
   >([]);
 
+  const [showAlert, setShowAlert] = useState(false);
+  const [editedQuestion, setEditedQuestion] = useState<{
+    questionId: any;
+    answer: string | number;
+  } | null>(null);
+
   const tokenString: any = localStorage.getItem("userDetails");
   const patientId: any = localStorage.getItem("currentPatientId");
   const tokenObject = JSON.parse(tokenString);
@@ -95,6 +102,32 @@ const Questions: React.FC = () => {
           setVisibleQuestions([data.questions[0]]);
         }
       });
+  };
+
+  const handleAnswerChange = (
+    questionId: any,
+    answer: string | number,
+    forwardQId: string | null
+  ) => {
+    const alreadyAnswered = responses.some(
+      (res) => res.questionId === questionId
+    );
+
+    if (alreadyAnswered) {
+      setEditedQuestion({ questionId, answer });
+      setShowAlert(true);
+    } else {
+      getNextQuestions(questionId, answer, forwardQId);
+    }
+  };
+
+  const confirmEditAnswer = () => {
+    if (editedQuestion) {
+      console.log("Edited answer:", editedQuestion);
+      getNextQuestions(editedQuestion.questionId, editedQuestion.answer, null);
+    }
+    setEditedQuestion(null);
+    setShowAlert(false);
   };
 
   const getNextQuestions = (
@@ -179,123 +212,32 @@ const Questions: React.FC = () => {
     }
   };
 
-  // const getNextQuestions = (
-  //   questionId: any,
-  //   answer: string | number,
-  //   forwardQId: string | null
-  // ) => {
-  //   console.log("forwardQId:", forwardQId);
-  //   console.log("Answer submitted for questionId:", questionId, answer);
+  const handleQuestionEdit = (index: number, questionId: any) => {
+    // Show confirmation dialog when a question is changed
+    if (index === 2) {
+      setShowAlert(true);
+    }
+  };
 
-  //   // Convert forwardQId to a number, if not null
-  //   const nextQuestionId = forwardQId ? parseInt(forwardQId, 10) : null;
+  const handleAlertConfirm = (questionId: any, forwardQId: string) => {
+    // Clear responses after confirmation and reset visible questions from forwardQId
+    setVisibleQuestions((prev) =>
+      prev.filter((q) => parseInt(q.questionId, 10) <= questionId)
+    );
+    setResponses((prevResponses) =>
+      prevResponses.filter((response) => response.questionId <= questionId)
+    );
 
-  //   // Add response to the state
-  //   setResponses((prevResponses) => {
-  //     const updatedResponses = [...prevResponses, { questionId, answer }];
+    // Show next questions based on forwardQId
+    const nextQuestion = questionData.find((q) => q.questionId === forwardQId);
 
-  //     // If forwardQId is null or no matching question is found, submit the responses
-  //     if (
-  //       !nextQuestionId ||
-  //       !questionData.some((q) => parseInt(q.questionId, 10) === nextQuestionId)
-  //     ) {
-  //       console.log(
-  //         "No matching question found or forwardQId is null:",
-  //         forwardQId
-  //       );
-  //       console.log("Submitting responses:", updatedResponses);
+    if (nextQuestion) {
+      setVisibleQuestions([nextQuestion]);
+      setEnabledIndex(0);
+    }
 
-  //       axios
-  //         .post(
-  //           `${import.meta.env.VITE_API_URL}/postAnswers`,
-  //           {
-  //             patientId: patientId,
-  //             categoryId: cardTitle,
-  //             answers: updatedResponses,
-  //           },
-  //           {
-  //             headers: {
-  //               Authorization: token,
-  //               "Content-Type": "application/json",
-  //             },
-  //           }
-  //         )
-  //         .then((response) => {
-  //           console.log("Responses submitted successfully:", response.data);
-  //         })
-  //         .catch((error) => {
-  //           console.error("Error submitting responses:", error);
-  //         });
-
-  //       return updatedResponses;
-  //     }
-
-  //     return updatedResponses;
-  //   });
-
-  //   // Find and reveal the next question, if it exists
-  //   const nextQuestion = questionData.find(
-  //     (q) => parseInt(q.questionId, 10) === nextQuestionId
-  //   );
-
-  //   if (nextQuestion) {
-  //     setVisibleQuestions((prevVisibleQuestions) => [
-  //       ...prevVisibleQuestions,
-  //       nextQuestion,
-  //     ]);
-  //     setEnabledIndex((prevIndex) => prevIndex + 1);
-  //   }
-  // };
-
-  // const getNextQuestions = (
-  //   questionId: any,
-  //   answer: string | number,
-  //   forwardQId: string
-  // ) => {
-  //   console.log("forwardQId:", forwardQId);
-  //   console.log("Answer submitted for questionId:", questionId, answer);
-
-  //   const nextQuestionId = parseInt(forwardQId, 10);
-
-  //   setResponses((prevResponses) => {
-  //     const updatedResponses = [...prevResponses, { questionId, answer }];
-
-  //     if (enabledIndex === questionData.length - 1) {
-  //       console.log("All responses:", updatedResponses);
-
-  //       axios.post(
-  //         `${import.meta.env.VITE_API_URL}/postAnswers`,
-  //         {
-  //           patientId: patientId,
-  //           categoryId: cardTitle,
-  //           answers: updatedResponses,
-  //         },
-  //         {
-  //           headers: {
-  //             Authorization: token,
-  //             "Content-Type": "application/json",
-  //           },
-  //         }
-  //       );
-  //     }
-
-  //     return updatedResponses;
-  //   });
-
-  //   const nextQuestion = questionData.find(
-  //     (q) => parseInt(q.questionId, 10) === nextQuestionId
-  //   );
-
-  //   if (nextQuestion) {
-  //     setVisibleQuestions((prevVisibleQuestions) => [
-  //       ...prevVisibleQuestions,
-  //       nextQuestion,
-  //     ]);
-  //     setEnabledIndex((prevIndex) => prevIndex + 1);
-  //   } else {
-  //     console.log("No matching question found for forwardQId:", nextQuestionId);
-  //   }
-  // };
+    setShowAlert(false);
+  };
 
   useEffect(() => {
     if (token) {
@@ -330,6 +272,7 @@ const Questions: React.FC = () => {
                       getNextQuestions(questionId, parseInt(value), forwardQId);
                     }
                   }}
+                  onEdit={() => handleQuestionEdit(index, question.questionId)} // Edit event handler
                 />
               )}
               {question.questionType === "1" && (
@@ -344,11 +287,33 @@ const Questions: React.FC = () => {
                       );
                     }
                   }}
+                  onEdit={() => handleQuestionEdit(index, question.questionId)} // Edit event handler
                 />
               )}
             </div>
           ))}
         </div>
+
+        {/* Alert dialog for editing a question */}
+        <IonAlert
+          isOpen={showAlert}
+          onDidDismiss={() => setShowAlert(false)}
+          header={"Confirm Edit"}
+          message={"Are you sure you want to edit this answer?"}
+          buttons={[
+            {
+              text: "No",
+              role: "cancel",
+            },
+            {
+              text: "Yes",
+              handler: () => {
+                const forwardQId = visibleQuestions[2]?.options[0]?.forwardQId; // Example forwardQId logic
+                handleAlertConfirm(visibleQuestions[2].questionId, forwardQId);
+              },
+            },
+          ]}
+        />
       </IonContent>
     </IonPage>
   );

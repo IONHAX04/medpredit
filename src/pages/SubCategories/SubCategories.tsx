@@ -25,6 +25,7 @@ const SubCategories: React.FC = () => {
 
   useEffect(() => {
     const tokenString = localStorage.getItem("userDetails");
+    const patientId = localStorage.getItem("currentPatientId");
 
     if (tokenString) {
       try {
@@ -36,6 +37,7 @@ const SubCategories: React.FC = () => {
             `${import.meta.env.VITE_API_URL}/getCategory `,
             {
               SubCategoryId: categoryId,
+              patientId: patientId,
             },
             {
               headers: {
